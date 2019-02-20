@@ -23,9 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        Typeface rubikFont = Typeface.createFromAsset(
-                                getAssets(), "fonts/rubik-regular.ttf");
-        welcomeText.setTypeface(rubikFont);
 
     }
 }
