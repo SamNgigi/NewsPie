@@ -16,6 +16,20 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    buildTypes {
+        debug {
+            buildConfigField('String', "ApiKey", NEWS_API_KEY)
+            // IN CASE WE WANT TO ADD API CREDENTIALS TO XML FILE.
+            resValue('string', 'api_key', NEWS_API_KEY)
+        }
+        release {
+            minifyEnabled false
+            buildConfigField('String', "ApiKey", NEWS_API_KEY)
+            // In other words resource value allowing us to pass api key to resource
+            resValue('string', "api_key", NEWS_API_KEY);
+        }
+    }
+
 }
 
 dependencies {
@@ -23,6 +37,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
     implementation 'com.android.support:support-core-utils:28.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    // Making api calls
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+    // Binding layout ids to view functions easily
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     testImplementation 'junit:junit:4.12'
