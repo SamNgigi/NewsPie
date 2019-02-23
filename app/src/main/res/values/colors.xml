@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#FFDE03</color>
+    <color name="colorPrimary2">#F5B700</color>
+    <color name="colorPrimary3">#F49D37</color>
+    <color name="colorPrimary4">#F3B61F</color>
+    <color name="mikadoYellow">#FFBE0B</color>
+    <color name="orangeWeb">#FFBE0B</color>
+
     <color name="colorPrimaryDark">#0336FF</color>
+    <color name="colorPrimaryDark2">#0A2463</color>
     <color name="colorAccent">#FF0266</color>
     <color name="secondaryTheme1">#FAFAFA</color>
-    <color name="secondaryTheme2">#212121</color>
+    <color name="mintCream">#F4FFFD</color>
+    <color name="secondaryTheme2">#010400</color>
 </resources>
