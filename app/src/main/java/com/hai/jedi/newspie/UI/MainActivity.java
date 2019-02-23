@@ -35,12 +35,12 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        newsCategories();
+        newsCategories("business", "us");
     }
 
-    private void newsCategories(){
+    private void newsCategories(String category, String country_id){
         NewsPieService newsPieService = new NewsPieService();
-        NewsPieService.getNewsCategories(new Callback(){
+        NewsPieService.getNewsCategories(category, country_id,new Callback(){
             // In case our api call fails
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException exception){

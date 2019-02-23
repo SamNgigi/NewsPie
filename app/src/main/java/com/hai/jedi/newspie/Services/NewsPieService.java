@@ -25,15 +25,15 @@ public class NewsPieService {
     public static final String TAG = NewsPieService.class.getSimpleName().toUpperCase();
 
     // Making our request
-    public static void getNewsCategories(Callback callback){
+    public static void getNewsCategories(String category, String country_id, Callback callback){
         // Instantiating OkHttpClient instance
         OkHttpClient client = new OkHttpClient();
 
         //Constructing the request url
         HttpUrl.Builder url_builder = Objects.requireNonNull(HttpUrl.parse(Constants.NEWS_BASE_URL))
                                              .newBuilder();
-        url_builder.addQueryParameter(Constants.COUNTRY_ID_PARAM, "us") // Put "us" here to test
-                   .addQueryParameter(Constants.NEWS_CATEGORY_PARAM, "business") // Put "general"
+        url_builder.addQueryParameter(Constants.NEWS_CATEGORY_PARAM, category)
+                   .addQueryParameter(Constants.COUNTRY_ID_PARAM, country_id)
                    .addQueryParameter(Constants.API_KEY_PARAM, Constants.NEWS_API_KEY);
 
         String request_url = url_builder.build().toString();
