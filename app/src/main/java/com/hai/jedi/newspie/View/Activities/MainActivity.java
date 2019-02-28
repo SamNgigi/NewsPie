@@ -1,4 +1,4 @@
-package com.hai.jedi.newspie.UI;
+package com.hai.jedi.newspie.View.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,8 +9,6 @@ import android.util.Log;
 
 import com.hai.jedi.newspie.R;
 import com.hai.jedi.newspie.Services.NewsPieService;
-
-import org.json.JSONObject;
 
 import java.io.IOException;
 
