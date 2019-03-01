@@ -7,6 +7,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/rubik_bold</item>
+        <item name="toolbarStyle">@style/CustomToolBarStyle</item>
+    </style>
+    <!--   This is how we change the title text color on the action bar. -->
+    <style name="CustomToolBarStyle" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="titleTextColor">@color/secondaryTheme2</item>
     </style>
 
 </resources>
