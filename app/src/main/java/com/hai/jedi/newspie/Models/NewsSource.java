@@ -1,13 +1,26 @@
 package com.hai.jedi.newspie.Models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class NewsSource {
-    String source_id;
-    String source_name;
-    String source_description;
-    String source_url;
-    String source_category;
-    String source_country;
-    String source_index;
+
+    @SerializedName("id")
+    @Expose
+    private String source_id;
+    private String source_name;
+    private String source_description;
+    private String source_url;
+    @SerializedName("category")
+    @Expose
+    private String source_category;
+    @SerializedName("country")
+    @Expose
+    private String source_country;
+    private String source_index;
+
+
+
 
     // Empty constructor for our Parceler;
     public NewsSource(){}
@@ -25,9 +38,13 @@ public class NewsSource {
         this.source_index = "not_specified";
     }
 
-    // Our getters
+    // Our getters & setters
     public String getSource_id(){
         return source_id;
+    }
+
+    public void setSource_id(String id){
+        this.source_id = id;
     }
 
     public String getSource_name(){
@@ -46,13 +63,12 @@ public class NewsSource {
         return source_category;
     }
 
-    public String getSource_country(){
-        return source_country;
+    public void setSource_category(String category){
+        this.source_category = category;
     }
 
-    public String getSource_index(){
-        return source_index;
-    }
+    public String getSource_country(){ return source_country; }
+    public String getSource_index(){ return source_index; }
 
     public void setSource_index(String new_index){
         this.source_index = new_index;

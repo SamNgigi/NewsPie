@@ -1,65 +1,35 @@
 package com.hai.jedi.newspie.Services;
 
-import android.content.Context;
-import android.util.Log;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.hai.jedi.newspie.Constants;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONArray;
+import java.util.concurrent.TimeUnit;
 
-import java.util.ArrayList;
-import java.io.IOException;
-import java.util.Objects;
-
-import okhttp3.Callback;
-import okhttp3.Call;
-import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NewsPieService {
     public static final String TAG = NewsPieService.class.getSimpleName().toUpperCase();
 
-    // Making our request
-    public static void getNewsCategories(String category, String country_id, Callback callback){
-        // Instantiating OkHttpClient instance
-        OkHttpClient client = new OkHttpClient();
+    public static NewsPieInterface newApiCall(){
+        Gson gson = new GsonBuilder()
+                        .setDateFormat("yyyy-MM-dd'T'HH:mm:ssz")
+                        .create();
 
-        //Constructing the request url
-        HttpUrl.Builder url_builder = Objects.requireNonNull(HttpUrl.parse(Constants.NEWS_BASE_URL))
-                                             .newBuilder();
-        url_builder.addQueryParameter(Constants.NEWS_CATEGORY_PARAM, category)
-                   .addQueryParameter(Constants.COUNTRY_ID_PARAM, country_id)
-                   .addQueryParameter(Constants.API_KEY_PARAM, Constants.NEWS_API_KEY);
+        OkHttpClient okHttpClient = new OkHttpClient
+                                        .Builder()
+                                        .connectTimeout(1, TimeUnit.MINUTES)
+                                        .readTimeout(30, TimeUnit.SECONDS)
+                                        .build();
 
-        String request_url = url_builder.build().toString();
-
-        // Preparing our request
-        Request request = new Request.Builder()
-                                     .url(request_url)
-                                     .build();
-
-        // Making our Api call that should receive a callback
-        Call call = client.newCall(request);
-        // We use enqueue here so that the call is asynchronous.
-        call.enqueue(callback);
-        // For synchronous we would use call.execute.
-    }
-
-    public String processResults(Response response){
-        String json_data = "";
-        try{
-            ResponseBody responseBody = response.body();
-            json_data = Objects.requireNonNull(responseBody).string();
-            Log.d(TAG, json_data);
-        } catch (IOException exception){
-            exception.printStackTrace();
-        }
-
-        return json_data;
+        Retrofit retrofit = new Retrofit
+                                .Builder()
+                                .baseUrl(Constants.NEWS_BASE_URL)
+                                .client(okHttpClient)
+                                .addConverterFactory(GsonConverterFactory.create(gson))
+                                .build();
+        return retrofit.create(NewsPieInterface.class);
     }
 }

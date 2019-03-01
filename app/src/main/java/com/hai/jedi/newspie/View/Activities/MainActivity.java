@@ -4,24 +4,36 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.hai.jedi.newspie.Constants;
 import com.hai.jedi.newspie.R;
+import com.hai.jedi.newspie.Services.NewsPieInterface;
 import com.hai.jedi.newspie.Services.NewsPieService;
+import com.hai.jedi.newspie.Services.SourcesWrapper;
+import com.hai.jedi.newspie.ViewModel.SourceViewModel;
 
-import java.io.IOException;
+import java.util.Objects;
 
-import okhttp3.Callback;
-import okhttp3.Call;
-import okhttp3.Response;
-
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
     public final String TAG = MainActivity.class.getSimpleName().toUpperCase();
+
+    SourceViewModel sourceViewModel;
 
     @BindView(R.id.welcomeText) TextView welcomeText;
 
@@ -32,29 +44,20 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-
-        newsCategories("business", "us");
+        sourceViewModel = ViewModelProviders.of(this).get(SourceViewModel.class);
+        /* *
+        *  Got nullPointer exception when i called the below method because i forgot to initialize
+        *  the ViewModel as done above.
+        *
+        * The call was experiencing a timeout when i was using the telkom wifi.
+        * I changed to student wifi and the call was executed just fine.
+        * */
+        sourceViewModel.sourcesForCategory("general").observe(
+                this, sourcesWrapper -> {
+                    Log.d(TAG, String.valueOf(sourcesWrapper.getSource_list()));
+                }
+        );
     }
 
-    private void newsCategories(String category, String country_id){
-        NewsPieService newsPieService = new NewsPieService();
-        NewsPieService.getNewsCategories(category, country_id,new Callback(){
-            // In case our api call fails
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException exception){
-                exception.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response)
-            throws IOException{
-              String json_response = newsPieService.processResults(response);
-
-              Log.d(TAG, json_response);
-            }
-
-
-        });
-    }
 
 }
