@@ -68,6 +68,7 @@ public class NewsSource {
     }
 
     public String getSource_country(){ return source_country; }
+
     public String getSource_index(){ return source_index; }
 
     public void setSource_index(String new_index){
