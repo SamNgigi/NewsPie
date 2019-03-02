@@ -1,41 +1,43 @@
 package com.hai.jedi.newspie.View.Activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.TabHost;
 import android.widget.TextView;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.hai.jedi.newspie.Constants;
 import com.hai.jedi.newspie.R;
-import com.hai.jedi.newspie.Services.NewsPieInterface;
-import com.hai.jedi.newspie.Services.NewsPieService;
-import com.hai.jedi.newspie.Services.SourcesWrapper;
 import com.hai.jedi.newspie.ViewModel.SourceViewModel;
 
-import java.util.Objects;
+import java.util.HashMap;
+import java.util.Map;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-
-    public final String TAG = MainActivity.class.getSimpleName().toUpperCase();
-
-    SourceViewModel sourceViewModel;
-
     @BindView(R.id.welcomeText) TextView welcomeText;
+    // TAG for Debugging
+    public final String TAG = MainActivity.class.getSimpleName().toUpperCase();
+    // Our ViewModel class
+    SourceViewModel sourceViewModel;
+    // Our News Categories Array
+    private String[] categories = new String[]{
+            "business", "entertainment", "general", "health", "science", "sports", "technology"
+    };
+
+    private String[] country_id = new String[]{ "us", "cn", "de", "il", "gb"};
+
+    private Map<String, String> countries = new HashMap<String, String>(){{
+        put("U.S.A", "us");
+        put("China", "cn");
+        put("Germany", "de");
+        put("Israel", "il");
+        put("U.K", "gb");
+    }};
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
