@@ -22,9 +22,23 @@ public class SourceViewModel extends ViewModel {
     private static final String TAG = SourceViewModel.class.getSimpleName();
 
     private MutableLiveData<SourcesWrapper> sources_list;
-    String default_country = "us";
+    String default_category = "general";
 
     // Overriding the sourcesForCategory method
+    public LiveData<SourcesWrapper> sourcesForCategory(){
+        if(sources_list == null){
+            sources_list = new MutableLiveData<>();
+            loadSources4Category();
+        }
+        return sources_list;
+    }
+
+    // Overriding the loadSources4Category method
+    private void loadSources4Category(){
+        loadSources4Category(default_category);
+    }
+
+
     public LiveData<SourcesWrapper> sourcesForCategory(String category){
         if(sources_list == null){
             sources_list = new MutableLiveData<>();
@@ -33,25 +47,10 @@ public class SourceViewModel extends ViewModel {
         return sources_list;
     }
 
-    // Overriding the loadSources4Category method
+
     private void loadSources4Category(String category){
-        loadSources4Category(default_country, category);
-    }
-
-
-    public LiveData<SourcesWrapper> sourcesForCategory(String country_id, String category){
-        if(sources_list == null){
-            sources_list = new MutableLiveData<>();
-            loadSources4Category(country_id, category);
-        }
-        return sources_list;
-    }
-
-
-    private void loadSources4Category(String country, String category){
         NewsPieInterface newsApiCall = NewsPieService.newApiCall();
-        Call<SourcesWrapper> call = newsApiCall.getNewsSources(
-                country, category, Constants.NEWS_API_KEY);
+        Call<SourcesWrapper> call = newsApiCall.getNewsSources(category, Constants.NEWS_API_KEY);
 
         call.enqueue(new Callback<SourcesWrapper>(){
             @Override

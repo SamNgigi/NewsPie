@@ -27,17 +27,6 @@ public class MainActivity extends AppCompatActivity {
             "business", "entertainment", "general", "health", "science", "sports", "technology"
     };
 
-    private String[] country_id = new String[]{ "us", "cn", "de", "il", "gb"};
-
-    private Map<String, String> countries = new HashMap<String, String>(){{
-        put("U.S.A", "us");
-        put("China", "cn");
-        put("Germany", "de");
-        put("Israel", "il");
-        put("U.K", "gb");
-    }};
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         * The call was experiencing a timeout when i was using the telkom wifi.
         * I changed to student wifi and the call was executed just fine.
         * */
-        sourceViewModel.sourcesForCategory("general").observe(
+        sourceViewModel.sourcesForCategory().observe(
                 this, sourcesWrapper -> {
                     Log.d(TAG, String.valueOf(sourcesWrapper.getSource_list()));
                 }

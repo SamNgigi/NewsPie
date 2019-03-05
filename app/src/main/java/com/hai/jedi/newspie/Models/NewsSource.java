@@ -14,9 +14,6 @@ public class NewsSource {
     @SerializedName("category")
     @Expose
     private String source_category;
-    @SerializedName("country")
-    @Expose
-    private String source_country;
     private String source_index;
 
 
@@ -27,14 +24,13 @@ public class NewsSource {
 
     public NewsSource(
             String id, String name, String description,
-            String host_url, String category, String country, String index
+            String host_url, String category
     ) {
         this.source_id = id;
         this.source_name = name;
         this.source_description = description;
         this.source_url = host_url;
         this.source_category = category;
-        this.source_country = country;
         this.source_index = "not_specified";
     }
 
@@ -66,8 +62,6 @@ public class NewsSource {
     public void setSource_category(String category){
         this.source_category = category;
     }
-
-    public String getSource_country(){ return source_country; }
 
     public String getSource_index(){ return source_index; }
 

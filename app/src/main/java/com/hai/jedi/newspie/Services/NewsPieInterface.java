@@ -9,8 +9,7 @@ import retrofit2.http.Query;
 public interface NewsPieInterface {
 
     @GET("sources?language=en")
-    Call<SourcesWrapper> getNewsSources(@Query("country_id") String country_id,
-                                                    @Query("category") String category,
-                                                    @Query("apiKey") String apiKey);
+    Call<SourcesWrapper> getNewsSources(@Query("category") String category,
+                                        @Query("apiKey") String apiKey);
 
 }
