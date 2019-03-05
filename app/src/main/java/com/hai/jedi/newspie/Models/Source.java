@@ -3,11 +3,13 @@ package com.hai.jedi.newspie.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class NewsSource {
+public class Source {
 
     @SerializedName("id")
     @Expose
     private String source_id;
+    @SerializedName("name")
+    @Expose
     private String source_name;
     private String source_description;
     private String source_url;
@@ -20,9 +22,9 @@ public class NewsSource {
 
 
     // Empty constructor for our Parceler;
-    public NewsSource(){}
+    public Source(){}
 
-    public NewsSource(
+    public Source(
             String id, String name, String description,
             String host_url, String category
     ) {

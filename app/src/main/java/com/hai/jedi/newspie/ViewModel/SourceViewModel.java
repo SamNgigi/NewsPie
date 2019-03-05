@@ -3,7 +3,6 @@ package com.hai.jedi.newspie.ViewModel;
 import android.util.Log;
 
 import com.hai.jedi.newspie.Constants;
-import com.hai.jedi.newspie.Models.NewsSource;
 import com.hai.jedi.newspie.Services.SourcesWrapper;
 import com.hai.jedi.newspie.Services.NewsPieInterface;
 import com.hai.jedi.newspie.Services.NewsPieService;
@@ -21,8 +20,9 @@ import retrofit2.Response;
 public class SourceViewModel extends ViewModel {
     private static final String TAG = SourceViewModel.class.getSimpleName();
 
+
+    /* SOURCE LOGIC */
     private MutableLiveData<SourcesWrapper> sources_list;
-    String default_category = "general";
 
     // Overriding the sourcesForCategory method
     public LiveData<SourcesWrapper> sourcesForCategory(){
@@ -35,6 +35,7 @@ public class SourceViewModel extends ViewModel {
 
     // Overriding the loadSources4Category method
     private void loadSources4Category(){
+        String default_category = "general";
         loadSources4Category(default_category);
     }
 

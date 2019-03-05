@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.util.Log;
 
 import com.hai.jedi.newspie.R;
+import com.hai.jedi.newspie.ViewModel.HeadlineViewModel;
 import com.hai.jedi.newspie.ViewModel.SourceViewModel;
 
 import java.util.HashMap;
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     public final String TAG = MainActivity.class.getSimpleName().toUpperCase();
     // Our ViewModel class
     SourceViewModel sourceViewModel;
+    HeadlineViewModel headlineViewModel;
     // Our News Categories Array
     private String[] categories = new String[]{
             "business", "entertainment", "general", "health", "science", "sports", "technology"
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         sourceViewModel = ViewModelProviders.of(this).get(SourceViewModel.class);
+        headlineViewModel = ViewModelProviders.of(this).get(HeadlineViewModel.class);
         /* *
         *  Got nullPointer exception when i called the below method because i forgot to initialize
         *  the ViewModel as done above.
@@ -43,9 +46,22 @@ public class MainActivity extends AppCompatActivity {
         * The call was experiencing a timeout when i was using the telkom wifi.
         * I changed to student wifi and the call was executed just fine.
         * */
+
         sourceViewModel.sourcesForCategory().observe(
                 this, sourcesWrapper -> {
                     Log.d(TAG, String.valueOf(sourcesWrapper.getSource_list()));
+                }
+        );
+
+        /*sourceViewModel.getHeadlines4Source("bbc-news").observe(
+                this, headlinesWrapper -> {
+                    Log.d(TAG, headlinesWrapper.getArticles().toString());
+                }
+        );*/
+
+        headlineViewModel.sourceHeadlines().observe(
+                this, headlineWrapper -> {
+                    Log.d(TAG, headlineWrapper.getArticles().toString());
                 }
         );
     }
