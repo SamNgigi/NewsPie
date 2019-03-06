@@ -4,7 +4,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!--Navigation-->
+    <!--NAVIGATION-->
+    <!--Header-->
+    <string name="cat_header">News Categories</string>
+    <!--Items-->
     <string name="home">Home</string>
     <string name="general">General</string>
     <string name="business">Business</string>
