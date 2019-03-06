@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.util.Log;
 
+import com.google.android.material.navigation.NavigationView;
 import com.hai.jedi.newspie.R;
 import com.hai.jedi.newspie.ViewModel.HeadlineViewModel;
 import com.hai.jedi.newspie.ViewModel.SourceViewModel;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     // Tool bar for our menu, to close and open our nav
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
+    @BindView(R.id.nav_view) NavigationView navView;
     // TAG for Debugging
     public final String TAG = MainActivity.class.getSimpleName().toUpperCase();
     // Our ViewModel class
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+        navView.setItemIconTintList(null);
         // Setting up Hamburger menu
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();

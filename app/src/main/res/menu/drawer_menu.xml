@@ -4,19 +4,19 @@
     <group android:checkableBehavior="single">
         <item
             android:title="@string/home"
-            android:icon="@drawable/ic_home"
+            android:icon="@drawable/ic_newspie"
             android:id="@+id/nav_home"/>
         <item
             android:title="@string/general"
-            android:icon="@drawable/ic_general"
+            android:icon="@drawable/ic_earth_globe"
             android:id="@+id/nav_general"/>
         <item
             android:title="@string/business"
-            android:icon="@drawable/ic_business"
+            android:icon="@drawable/ic_line_chart"
             android:id="@+id/nav_business"/>
         <item
             android:title="@string/sports"
-            android:icon="@drawable/ic_sports"
+            android:icon="@drawable/ic_trophy"
             android:id="@+id/nav_sports"/>
         <item
             android:title="@string/tech"
@@ -24,15 +24,15 @@
             android:id="@+id/nav_tech"/>
         <item
             android:title="@string/health"
-            android:icon="@drawable/ic_health"
+            android:icon="@drawable/ic_doctor"
             android:id="@+id/nav_health"/>
         <item
             android:title="@string/science"
-            android:icon="@drawable/ic_science"
+            android:icon="@drawable/ic_chemistry"
             android:id="@+id/nav_science"/>
         <item
             android:title="@string/entertainment"
-            android:icon="@drawable/ic_entertainment"
+            android:icon="@drawable/ic_movie_player"
             android:id="@+id/nav_entertainment"/>
     </group>
 </menu>
