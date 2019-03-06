@@ -1,8 +1,11 @@
 package com.hai.jedi.newspie.View.Activities;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 import android.util.Log;
 
@@ -13,12 +16,17 @@ import com.hai.jedi.newspie.ViewModel.SourceViewModel;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.welcomeText) TextView welcomeText;
+    // Tool bar for our menu, to close and open our nav
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
     // TAG for Debugging
     public final String TAG = MainActivity.class.getSimpleName().toUpperCase();
     // Our ViewModel class
@@ -36,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+        // Setting up Hamburger menu
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         sourceViewModel = ViewModelProviders.of(this).get(SourceViewModel.class);
         headlineViewModel = ViewModelProviders.of(this).get(HeadlineViewModel.class);
@@ -64,6 +78,16 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, headlineWrapper.getArticles().toString());
                 }
         );
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
