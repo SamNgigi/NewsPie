@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:elevation="3dp"
+        android:padding="5dp"
+        app:cardCornerRadius="5dp"
+        android:layout_margin="5dp"
+        android:id="@+id/card_view">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_newspaper_one"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/app_name"
+                android:id="@+id/sourceImageView"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp">
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:text="@string/app_name"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sourceName"
+                    />
+
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:padding="5dp"
+                    android:text="@string/cat_label"
+                    android:textStyle="italic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sourceName"
+                    android:id="@+id/cat_label" />
+
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:padding="5dp"
+                    android:text="@string/general"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cat_label"
+                    android:id="@+id/sourceCategory" />
+
+
+
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:padding="5dp"
+                    android:text="@string/lorem"
+                    android:textColor="@color/colorPrimaryDark"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/sourceCategory"
+                    android:id="@+id/sourceUrl" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

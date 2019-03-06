@@ -20,7 +20,7 @@
             android:id="@+id/nav_sports"/>
         <item
             android:title="@string/tech"
-            android:icon="@drawable/ic_tech"
+            android:icon="@drawable/ic_robot"
             android:id="@+id/nav_tech"/>
         <item
             android:title="@string/health"

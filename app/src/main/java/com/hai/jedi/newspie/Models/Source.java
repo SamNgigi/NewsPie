@@ -11,7 +11,11 @@ public class Source {
     @SerializedName("name")
     @Expose
     private String source_name;
+    @SerializedName("description")
+    @Expose
     private String source_description;
+    @SerializedName("url")
+    @Expose
     private String source_url;
     @SerializedName("category")
     @Expose

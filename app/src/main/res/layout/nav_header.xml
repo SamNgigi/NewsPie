@@ -15,6 +15,6 @@
         android:text="@string/cat_header"
         android:textAlignment="center"
         android:textSize="20sp"
-        android:textColor="@color/mintCream"/>
+        android:textColor="@color/colorPrimary"/>
 
 </LinearLayout>

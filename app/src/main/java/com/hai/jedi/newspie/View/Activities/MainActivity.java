@@ -24,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
-    @BindView(R.id.welcomeText) TextView welcomeText;
+    //@BindView(R.id.welcomeText) TextView welcomeText;
     // Tool bar for our menu, to close and open our nav
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+        // Makes sure the nav svg icons have their original color
         navView.setItemIconTintList(null);
         // Setting up Hamburger menu
         setSupportActionBar(toolbar);

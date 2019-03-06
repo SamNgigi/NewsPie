@@ -7,6 +7,10 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +19,7 @@ import android.view.ViewGroup;
 
 import com.hai.jedi.newspie.Models.Source;
 import com.hai.jedi.newspie.R;
+import com.hai.jedi.newspie.View.Adapters.SourceListAdapter;
 import com.hai.jedi.newspie.ViewModel.SourceViewModel;
 
 import java.util.Objects;
@@ -36,6 +41,9 @@ public class SourceListFragment extends Fragment {
 
     // Initializing SourceViewModel
     private SourceViewModel sourceViewModel;
+    // Our RecyclerView
+    @BindView(R.id.recyclerView)
+    RecyclerView mRecyclerView;
 
     // private OnFragmentInteractionListener mListener;
 
@@ -73,6 +81,7 @@ public class SourceListFragment extends Fragment {
 
         sourceViewModel.sourcesForCategory().observe(
                 this, sources -> {
+                    mRecyclerView.setAdapter(new SourceListAdapter(sources.getSource_list()));
                     Log.d(TAG, sources.getSource_list().toString());
                 }
         );
@@ -92,7 +101,11 @@ public class SourceListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_category_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_category_list, container, false);
+        ButterKnife.bind(this, view);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        return view;
     }
 
     /*// TODO: Rename method, update argument and hook method into UI event

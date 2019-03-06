@@ -2,11 +2,12 @@
     <string name="app_name">NewsPie</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank">Hello blank fragment</string>
 
     <!--NAVIGATION-->
     <!--Header-->
     <string name="cat_header">News Categories</string>
+    <string name="cat_label">Category</string>
     <!--Items-->
     <string name="home">Home</string>
     <string name="general">General</string>
@@ -16,4 +17,7 @@
     <string name="health">Health</string>
     <string name="science">Science</string>
     <string name="entertainment">Entertainment</string>
+
+    <!--Lorem Ipsum-->
+    <string name="lorem">www.whatever.co.ke.dope</string>
 </resources>
