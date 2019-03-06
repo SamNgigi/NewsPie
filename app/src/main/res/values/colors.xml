@@ -2,10 +2,6 @@
 <resources>
     <color name="colorPrimary">#FFDE03</color>
     <color name="colorPrimary2">#F5B700</color>
-    <color name="colorPrimary3">#F49D37</color>
-    <color name="colorPrimary4">#F3B61F</color>
-    <color name="mikadoYellow">#FFBE0B</color>
-    <color name="orangeWeb">#FFBE0B</color>
 
     <color name="colorPrimaryDark">#0336FF</color>
     <color name="colorPrimaryDark2">#0A2463</color>
