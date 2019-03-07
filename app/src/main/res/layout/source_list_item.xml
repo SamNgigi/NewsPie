@@ -7,7 +7,7 @@
     android:layout_margin="5dp">
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="130dp"
         android:padding="5dp"
         app:cardCornerRadius="10dp"
         app:cardElevation="7dp"
@@ -45,14 +45,14 @@
                     android:layout_below="@+id/sourceName"
                     android:id="@+id/sourceCategory"/>
 
-                    <TextView
-                        android:padding="14dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_bookmark"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentEnd="true"
-                        android:id="@+id/bookMark"/>
+                <TextView
+                    android:padding="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_bookmark"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/bookMark"/>
 
             </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
