@@ -1,79 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:elevation="3dp"
+    android:layout_height="wrap_content"
+    android:padding="7dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp">
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
         android:padding="5dp"
-        app:cardCornerRadius="5dp"
-        android:layout_margin="5dp"
-        android:id="@+id/card_view">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:src="@drawable/ic_newspaper_one"
-                android:scaleType="fitCenter"
-                android:contentDescription="@string/app_name"
-                android:id="@+id/sourceImageView"/>
-
+        app:cardCornerRadius="10dp"
+        app:cardElevation="7dp"
+        android:layout_centerInParent="true">
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:padding="10dp">
+                android:padding="7dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:scaleType="centerCrop"
+                    android:layout_alignParentStart="true"
+                    app:civ_circle_background_color="@color/colorPrimary"
+                    android:src="@drawable/ic_newspaper_two"
+                    android:id="@+id/def_image"/>
+
                 <TextView
-                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
                     android:text="@string/app_name"
-                    android:textSize="18sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/sourceName"
-                    />
+                    android:textColor="@color/secondaryTheme2"
+                    android:textSize="20sp"
+                    android:id="@+id/sourceName"/>
 
                 <TextView
-                    android:layout_marginStart="5dp"
-                    android:padding="5dp"
-                    android:text="@string/cat_label"
-                    android:textStyle="italic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/sourceName"
-                    android:id="@+id/cat_label" />
-
-                <TextView
-                    android:layout_marginStart="5dp"
-                    android:padding="5dp"
+                    android:layout_centerHorizontal="true"
                     android:text="@string/general"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/cat_label"
-                    android:id="@+id/sourceCategory" />
+                    android:layout_below="@+id/sourceName"
+                    android:id="@+id/sourceCategory"/>
 
-
-
-                <TextView
-                    android:layout_marginStart="5dp"
-                    android:padding="5dp"
-                    android:text="@string/lorem"
-                    android:textColor="@color/colorPrimaryDark"
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/sourceCategory"
-                    android:id="@+id/sourceUrl" />
+                    <TextView
+                        android:padding="14dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_bookmark"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/bookMark"/>
 
             </RelativeLayout>
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-</LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

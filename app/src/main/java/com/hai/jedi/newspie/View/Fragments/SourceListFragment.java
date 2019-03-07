@@ -104,7 +104,9 @@ public class SourceListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_category_list, container, false);
         ButterKnife.bind(this, view);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),
+                                        LinearLayoutManager.HORIZONTAL,
+                            false));
         return view;
     }
 

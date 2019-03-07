@@ -33,14 +33,10 @@ public class SourceListAdapter
     // Our ViewHolder class
     public class SourceViewHolder extends RecyclerView.ViewHolder{
 
-        @BindView(R.id.sourceImageView)
-        ImageView mSourceImageView;
         @BindView(R.id.sourceName)
         TextView mSourceName;
         @BindView(R.id.sourceCategory)
         TextView mSourceCategory;
-        @BindView(R.id.sourceUrl)
-        TextView mSourceUrl;
 
 
 
@@ -55,9 +51,6 @@ public class SourceListAdapter
         public void bindSource(Source source){
            mSourceName.setText(source.getSource_name());
            mSourceCategory.setText(source.getSource_category());
-           mSourceUrl.setText(Html.fromHtml(itemView.getContext().getString(R.string.lorem)));
-           mSourceUrl.setText(source.getSource_url());
-
         }
     }
 
