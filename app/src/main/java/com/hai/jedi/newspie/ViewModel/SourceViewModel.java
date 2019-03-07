@@ -43,13 +43,13 @@ public class SourceViewModel extends ViewModel {
     public LiveData<SourcesWrapper> sourcesForCategory(String category){
         if(sources_list == null){
             sources_list = new MutableLiveData<>();
-            loadSources4Category(category);
+            //loadSources4Category(category);
         }
         return sources_list;
     }
 
 
-    private void loadSources4Category(String category){
+    public void loadSources4Category(String category){
         NewsPieInterface newsApiCall = NewsPieService.newApiCall();
         Call<SourcesWrapper> call = newsApiCall.getNewsSources(category, Constants.NEWS_API_KEY);
 

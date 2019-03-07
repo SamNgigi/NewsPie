@@ -1,6 +1,8 @@
 package com.hai.jedi.newspie.View.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -12,6 +14,7 @@ import android.util.Log;
 import com.google.android.material.navigation.NavigationView;
 import com.hai.jedi.newspie.R;
 import com.hai.jedi.newspie.ViewModel.HeadlineViewModel;
+import com.hai.jedi.newspie.ViewModel.SharedViewModel;
 import com.hai.jedi.newspie.ViewModel.SourceViewModel;
 
 import java.util.HashMap;
@@ -23,7 +26,9 @@ import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity
+        extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener{
     //@BindView(R.id.welcomeText) TextView welcomeText;
     // Tool bar for our menu, to close and open our nav
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -34,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
     // Our ViewModel class
     SourceViewModel sourceViewModel;
     HeadlineViewModel headlineViewModel;
+    SharedViewModel sharedViewModel;
+
+    //Animating the NavigationView
+    private ActionBarDrawerToggle drawerToggle;
     // Our News Categories Array
     private String[] categories = new String[]{
             "business", "entertainment", "general", "health", "science", "sports", "technology"
@@ -48,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         // Makes sure the nav svg icons have their original color
         navView.setItemIconTintList(null);
+        // Listening for selection
+        navView.setNavigationItemSelectedListener(this);
         // Setting up Hamburger menu
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -55,35 +66,17 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-        sourceViewModel = ViewModelProviders.of(this).get(SourceViewModel.class);
         headlineViewModel = ViewModelProviders.of(this).get(HeadlineViewModel.class);
-        /* *
-        *  Got nullPointer exception when i called the below method because i forgot to initialize
-        *  the ViewModel as done above.
-        *
-        * The call was experiencing a timeout when i was using the telkom wifi.
-        * I changed to student wifi and the call was executed just fine.
-        * */
-
-        sourceViewModel.sourcesForCategory().observe(
-                this, sourcesWrapper -> {
-                    Log.d(TAG, String.valueOf(sourcesWrapper.getSource_list()));
-                }
-        );
-
-        /*sourceViewModel.getHeadlines4Source("bbc-news").observe(
-                this, headlinesWrapper -> {
-                    Log.d(TAG, headlinesWrapper.getArticles().toString());
-                }
-        );*/
-
         headlineViewModel.sourceHeadlines().observe(
                 this, headlineWrapper -> {
                     Log.d(TAG, headlineWrapper.getArticles().toString());
                 }
         );
+
+        sharedViewModel = ViewModelProviders.of(this).get(SharedViewModel.class);
     }
 
+    // Hamburger Menu manenos
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
@@ -92,6 +85,30 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // Nav item clicked manenos
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem navItem){
+        // set navItem as selected to persist highlight
+        navItem.setChecked(true);
+        // close drawer when item is tapped
+        drawerLayout.closeDrawers();
+
+        switch(navItem.getItemId()){
+            case R.id.nav_general:
+                sharedViewModel.setSelected_category();
+                break;
+            case R.id.nav_business:
+                sharedViewModel.setSelected_category((String) navItem.getTitle());
+                sharedViewModel.getSelected_category().observe(
+                        this, category -> {
+                            Log.d(TAG, category);
+                        }
+                );
+        }
+
+        return true;
     }
 
 

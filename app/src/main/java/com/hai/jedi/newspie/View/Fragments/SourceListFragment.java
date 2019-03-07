@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import com.hai.jedi.newspie.Models.Source;
 import com.hai.jedi.newspie.R;
 import com.hai.jedi.newspie.View.Adapters.SourceListAdapter;
+import com.hai.jedi.newspie.ViewModel.SharedViewModel;
 import com.hai.jedi.newspie.ViewModel.SourceViewModel;
 
 import java.util.Objects;
@@ -41,6 +42,8 @@ public class SourceListFragment extends Fragment {
 
     // Initializing SourceViewModel
     private SourceViewModel sourceViewModel;
+    // Initializing SharedViewModel
+    private SharedViewModel sharedViewModel;
     // Our RecyclerView
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
@@ -76,16 +79,42 @@ public class SourceListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
 
+        /* *
+         * We initialize our observer here in the onActivityCreated method because we want to make
+         * sure that the onCreate method of the underlying activity is already called and therefore
+         * any updates from the underlying activity can also be observed.
+         *
+         * You can find our more about this here https://www.youtube.com/watch?v=ACK67xU1Y3s
+         * */
+
+        sharedViewModel = ViewModelProviders.of(Objects.requireNonNull(this.getActivity()))
+                                            .get(SharedViewModel.class);
         sourceViewModel = ViewModelProviders.of(Objects.requireNonNull(this.getActivity()))
                                             .get(SourceViewModel.class);
+        /* *
+         *  Got nullPointer exception when i called the below method because i forgot to initialize
+         *  the ViewModel as done above.
+         *
+         * The call was experiencing a timeout when i was using the telkom wifi.
+         * I changed to student wifi and the call was executed just fine.
+         *
+         * Below we also use "getViewLifecycleOwner" instead of using "this" so that the UI is
+         * updated based on the view lifecycle instead of the fragment instance lifecycle. We have to do this
+         * */
+
+        sharedViewModel.getSelected_category().observe(
+                getViewLifecycleOwner(), category -> {
+                    Log.d(TAG, category);
+                    sourceViewModel.loadSources4Category(category);
+                }
+        );
 
         sourceViewModel.sourcesForCategory().observe(
-                this, sources -> {
+                getViewLifecycleOwner(), sources -> {
                     mRecyclerView.setAdapter(new SourceListAdapter(sources.getSource_list()));
                     Log.d(TAG, sources.getSource_list().toString());
                 }
         );
-
     }
 
     @Override
@@ -105,47 +134,9 @@ public class SourceListFragment extends Fragment {
         ButterKnife.bind(this, view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),
-                                        LinearLayoutManager.HORIZONTAL,
-                            false));
+                LinearLayoutManager.HORIZONTAL,
+                false));
         return view;
     }
 
-    /*// TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }*/
-
-    /*@Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }*/
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    /*public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }*/
 }
