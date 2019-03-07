@@ -20,4 +20,8 @@
 
     <!--Lorem Ipsum-->
     <string name="lorem">www.whatever.co.ke.dope</string>
+
+    <!--For our hamburger menu-->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>

@@ -6,19 +6,15 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.util.Log;
 
 import com.google.android.material.navigation.NavigationView;
 import com.hai.jedi.newspie.R;
 import com.hai.jedi.newspie.ViewModel.HeadlineViewModel;
 import com.hai.jedi.newspie.ViewModel.SharedViewModel;
-import com.hai.jedi.newspie.ViewModel.SourceViewModel;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -37,7 +33,7 @@ public class MainActivity
     // TAG for Debugging
     public final String TAG = MainActivity.class.getSimpleName().toUpperCase();
     // Our ViewModel class
-    SourceViewModel sourceViewModel;
+    // SourceViewModel sourceViewModel;
     HeadlineViewModel headlineViewModel;
     SharedViewModel sharedViewModel;
 
@@ -66,6 +62,10 @@ public class MainActivity
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
+        // Hamburger menu animation
+        drawerToggle = setupDrawerToggle();
+        drawerLayout.addDrawerListener(drawerToggle);
+
         headlineViewModel = ViewModelProviders.of(this).get(HeadlineViewModel.class);
         headlineViewModel.sourceHeadlines().observe(
                 this, headlineWrapper -> {
@@ -74,6 +74,24 @@ public class MainActivity
         );
 
         sharedViewModel = ViewModelProviders.of(this).get(SharedViewModel.class);
+    }
+
+    private ActionBarDrawerToggle setupDrawerToggle(){
+        return new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                                         R.string.drawer_open, R.string.drawer_close);
+    }
+
+    // Hamburger menu animation manenos
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState){
+        super.onPostCreate(savedInstanceState);
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig){
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
     }
 
     // Hamburger Menu manenos
