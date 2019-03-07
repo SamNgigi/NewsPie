@@ -101,11 +101,23 @@ public class MainActivity
                 break;
             case R.id.nav_business:
                 sharedViewModel.setSelected_category((String) navItem.getTitle());
-                sharedViewModel.getSelected_category().observe(
-                        this, category -> {
-                            Log.d(TAG, category);
-                        }
-                );
+                break;
+            case R.id.nav_sports:
+                sharedViewModel.setSelected_category((String) navItem.getTitle());
+                break;
+            case R.id.nav_tech:
+                sharedViewModel.setSelected_category((String) navItem.getTitle());
+                break;
+            case R.id.nav_health:
+                sharedViewModel.setSelected_category((String) navItem.getTitle());
+                break;
+            case R.id.nav_science:
+                sharedViewModel.setSelected_category((String) navItem.getTitle());
+                break;
+            case R.id.nav_entertainment:
+                sharedViewModel.setSelected_category((String) navItem.getTitle());
+                break;
+
         }
 
         return true;

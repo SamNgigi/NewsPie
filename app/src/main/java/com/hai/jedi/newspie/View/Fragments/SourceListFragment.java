@@ -101,14 +101,15 @@ public class SourceListFragment extends Fragment {
          * Below we also use "getViewLifecycleOwner" instead of using "this" so that the UI is
          * updated based on the view lifecycle instead of the fragment instance lifecycle. We have to do this
          * */
-
+        // getting the information from the navigation view from the main activity.
         sharedViewModel.getSelected_category().observe(
                 getViewLifecycleOwner(), category -> {
                     Log.d(TAG, category);
+                    // Loading the data dynamically.
                     sourceViewModel.loadSources4Category(category);
                 }
         );
-
+        // Displaying the source data.
         sourceViewModel.sourcesForCategory().observe(
                 getViewLifecycleOwner(), sources -> {
                     mRecyclerView.setAdapter(new SourceListAdapter(sources.getSource_list()));
