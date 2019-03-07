@@ -2,6 +2,7 @@ package com.hai.jedi.newspie.View.Adapters;
 
 import android.content.Context;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ import butterknife.ButterKnife;
 public class SourceListAdapter
         extends RecyclerView.Adapter<SourceListAdapter.SourceViewHolder>{
 
+    private  final String TAG = SourceListAdapter.class.getSimpleName().toUpperCase();
+
     private Context mContext;
     private List<Source> mSources;
 
@@ -31,7 +34,8 @@ public class SourceListAdapter
     }
 
     // Our ViewHolder class
-    public class SourceViewHolder extends RecyclerView.ViewHolder{
+    public class SourceViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener{
 
         @BindView(R.id.sourceName)
         TextView mSourceName;
@@ -46,11 +50,22 @@ public class SourceListAdapter
         public SourceViewHolder(View itemView){
             super(itemView);
             ButterKnife.bind(this, itemView);
+            // Listening for a click on our recycler view
+            itemView.setOnClickListener(this);
         }
 
         public void bindSource(Source source){
            mSourceName.setText(source.getSource_name());
            mSourceCategory.setText(source.getSource_category());
+        }
+
+        // Handling click event on a source item
+        @Override
+        public void onClick(View view){
+
+            int itemPosition = getLayoutPosition();
+            Log.d(TAG, mSources.get(itemPosition).getSource_name());
+
         }
     }
 
@@ -73,5 +88,6 @@ public class SourceListAdapter
     public int getItemCount(){
         return mSources.size();
     }
+
 
 }
