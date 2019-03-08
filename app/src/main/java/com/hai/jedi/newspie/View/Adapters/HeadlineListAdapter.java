@@ -1,11 +1,14 @@
 package com.hai.jedi.newspie.View.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hai.jedi.newspie.Models.Headline;
 import com.hai.jedi.newspie.R;
@@ -46,6 +49,11 @@ public class HeadlineListAdapter
         @BindView(R.id.publishedAt)
         TextView publishedAt;
 
+        @BindView(R.id.toArticle)
+        TextView toFullArticle;
+
+
+
 
 
 
@@ -62,11 +70,19 @@ public class HeadlineListAdapter
             title.setText(headline.getTitle());
             description.setText(headline.getDescription());
             publishedAt.setText(headline.getPublished_at());
+            toFullArticle.setOnClickListener(this);
         }
 
 
         @Override
         public void onClick(View view){
+            //Getting the layout position of what we have just clicked
+            int itemPosition = getLayoutPosition();
+            // Grabbing the article url of the article we have just clicked on.
+            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(mHeadlines.get(itemPosition).getArticle_url()));
+            // Starting the activity.
+            view.getContext().startActivity(webIntent);
 
         }
 

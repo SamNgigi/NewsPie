@@ -51,15 +51,9 @@
             android:layout_alignParentStart="true"
             android:text="@string/time"
             android:padding="7dp"
+            android:layout_marginBottom="10dp"
             android:id="@+id/publishedAt"/>
 
-        <!--<TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/publishedAt"
-            android:layout_alignParentStart="true"
-            android:text="@string/time"
-            android:padding="7dp" />-->
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -71,6 +65,22 @@
             android:padding="5dp"
             android:contentDescription="@string/bookmark_button"
             android:id="@+id/bookmarkButton"/>
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/publishedAt"
+            style="@style/Widget.MaterialComponents.Chip.Action"
+            android:text="@string/see_full_article"
+            app:chipIcon="@drawable/ic_link"
+            app:iconStartPadding="5dp"
+            app:chipIconSize="20dp"
+            android:fontFamily="@font/rubik_regular"
+            android:textColor="@color/mintCream"
+            app:chipBackgroundColor="@color/colorPrimaryDark"
+            android:id="@+id/toArticle"/>
+
+
 
 
     </RelativeLayout>
