@@ -11,6 +11,8 @@ public class Headline {
     @SerializedName("title")
     @Expose
     private String title;
+    @SerializedName("description")
+    @Expose
     private String description;
     private String article_url;
     @SerializedName("urlToImage")
@@ -19,6 +21,8 @@ public class Headline {
     @SerializedName("publishedAt")
     @Expose
     private String published_at;
+    @SerializedName("content")
+    @Expose
     private String content;
 
     public Headline(){}

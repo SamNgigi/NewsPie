@@ -40,6 +40,15 @@ public class HeadlineListAdapter
         @BindView(R.id.headlineTitle)
         TextView title;
 
+        @BindView(R.id.headlineDescription)
+        TextView description;
+
+        @BindView(R.id.publishedAt)
+        TextView publishedAt;
+
+
+
+
 
 
         public HeadlineViewHolder(View viewItem){
@@ -51,6 +60,8 @@ public class HeadlineListAdapter
         public void bindHeadline(Headline headline){
             Picasso.get().load(headline.getImg_url()).into(headlineImage);
             title.setText(headline.getTitle());
+            description.setText(headline.getDescription());
+            publishedAt.setText(headline.getPublished_at());
         }
 
 
