@@ -7,6 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hai.jedi.newspie.R;
+import com.hai.jedi.newspie.View.Adapters.HeadlineListAdapter;
 import com.hai.jedi.newspie.ViewModel.HeadlineViewModel;
 import com.hai.jedi.newspie.ViewModel.SharedViewModel;
 
@@ -28,6 +33,10 @@ public class HeadlineListFragment extends Fragment {
 
     private HeadlineViewModel headlineViewModel;
     private SharedViewModel sharedViewModel;
+
+    // Headline recyclerView
+    @BindView(R.id.headlineRecycler)
+    RecyclerView headlineRecycler;
 
 
     public HeadlineListFragment() {
@@ -47,12 +56,15 @@ public class HeadlineListFragment extends Fragment {
         sharedViewModel.getSelected_source().observe(
                 getViewLifecycleOwner(), selected_sourceId -> {
                     Log.d(TAG, selected_sourceId);
+                    headlineViewModel.loadHeadlines4Source(selected_sourceId);
                 }
         );
 
         headlineViewModel.sourceHeadlines().observe(
-                getViewLifecycleOwner(), headlineWrapper -> {
-                    Log.d(TAG, headlineWrapper.getArticles().toString());
+                getViewLifecycleOwner(), headlines -> {
+                    Log.d(TAG, headlines.getArticles().toString());
+                    headlineRecycler.setAdapter(
+                            new HeadlineListAdapter(getActivity(), headlines.getArticles()));
                 }
         );
 
@@ -63,7 +75,11 @@ public class HeadlineListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_headline_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_headline_list, container, false);
+        ButterKnife.bind(this, view);
+        headlineRecycler.setHasFixedSize(true);
+        headlineRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        return view;
     }
 
 }

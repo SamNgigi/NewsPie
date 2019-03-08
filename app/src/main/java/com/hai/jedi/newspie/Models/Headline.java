@@ -8,9 +8,13 @@ public class Headline {
     @Expose
     private Source baseSource;
     private String author;
+    @SerializedName("title")
+    @Expose
     private String title;
     private String description;
     private String article_url;
+    @SerializedName("urlToImage")
+    @Expose
     private String img_url;
     @SerializedName("publishedAt")
     @Expose

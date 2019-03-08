@@ -42,12 +42,12 @@ public class HeadlineViewModel extends ViewModel{
     public LiveData<HeadlineWrapper> sourceHeadlines(String source_id){
         if(article_list == null){
             article_list = new MutableLiveData<>();
-            loadHeadlines4Source(source_id);
+           // loadHeadlines4Source(source_id);
         }
         return article_list;
     }
 
-    private void loadHeadlines4Source(String source_id){
+    public void loadHeadlines4Source(String source_id){
         NewsPieInterface newsApiCall = NewsPieService.newApiCall();
         Call<HeadlineWrapper> call = newsApiCall.getSourceHeadlines(source_id, Constants.NEWS_API_KEY);
 

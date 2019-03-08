@@ -8,5 +8,7 @@
     <color name="colorAccent">#FF0266</color>
     <color name="secondaryTheme1">#FAFAFA</color>
     <color name="mintCream">#F4FFFD</color>
+    <color name="grey">#EEEEEE</color>
     <color name="secondaryTheme2">#010400</color>
+    <color name="seaBlue">#006E90</color>
 </resources>

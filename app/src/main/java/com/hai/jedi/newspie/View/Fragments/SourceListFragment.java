@@ -109,11 +109,15 @@ public class SourceListFragment extends Fragment {
                     sourceViewModel.loadSources4Category(category);
                 }
         );
-        // Displaying the source data.
+
+        /*
+        * Displaying the source data. This is updated dynamically based on the category chosen as
+        * we are calling the loadSources4Category first.
+        * */
         sourceViewModel.sourcesForCategory().observe(
                 getViewLifecycleOwner(), sources -> {
                     mRecyclerView.setAdapter(new SourceListAdapter(getActivity(),sources.getSource_list()));
-                    Log.d(TAG, sources.getSource_list().toString());
+                   /* Log.d(TAG, sources.getSource_list().toString());*/
                 }
         );
     }

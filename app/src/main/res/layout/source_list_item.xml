@@ -4,7 +4,7 @@
     android:layout_height="130dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="5dp"
-    android:layout_margin="8dp"
+    android:layout_margin="7dp"
     app:cardCornerRadius="10dp"
     app:cardElevation="7dp"
     android:layout_centerInParent="true"

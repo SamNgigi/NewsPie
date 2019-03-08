@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".View.Activities.MainActivity"
-        android:background="@color/colorPrimary"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
@@ -23,18 +22,18 @@
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
 
         <fragment
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/sourceListFragment"
             android:name="com.hai.jedi.newspie.View.Fragments.SourceListFragment"
-            tools:layout="@layout/fragment_category_list"
-            android:id="@+id/sourceListFragment"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_category_list" />
 
         <fragment
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:id="@+id/headlineListFragment"
             android:name="com.hai.jedi.newspie.View.Fragments.HeadlineListFragment"
-            tools:layout="@layout/fragment_headline_list"
-            android:id="@+id/headlineListFragment"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_headline_list" />
 
 
 

@@ -3,14 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="10dp"
     android:padding="10dp"
-    android:background="@color/colorPrimary"
+    android:background="@color/grey"
     tools:context=".View.Fragments.HeadlineListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_marginTop="10dp"
+        android:id="@+id/headlineRecycler"/>
 
 </LinearLayout>
