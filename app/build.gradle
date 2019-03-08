@@ -26,10 +26,13 @@ android {
             minifyEnabled false
             buildConfigField('String', "ApiKey", NEWS_API_KEY)
             // In other words resource value allowing us to pass api key to resource
-            resValue('string', "api_key", NEWS_API_KEY);
+            resValue('string', "api_key", NEWS_API_KEY)
         }
     }
 
+    dataBinding {
+        enabled = true
+    }
 }
 
 // VERSIONING
@@ -41,8 +44,8 @@ def butterKnifeVersion = "10.0.0"
 def daggerVersion = "2.21"
 def lifecycleVersions = "2.0.0"
 def okhttp3Version = "3.12.1"
-def androidSupportVersion="28.0.0"
-def materialVersion="1.0.0"
+def androidSupportVersion = "28.0.0"
+def materialVersion = "1.0.0"
 
 
 dependencies {
@@ -81,6 +84,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
     // Serializing and deserializing our models
     implementation 'org.parceler:parceler-api:1.1.12'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
     annotationProcessor 'org.parceler:parceler:1.1.12'
     // Making api calls
     implementation 'com.squareup.okhttp3:okhttp:3.12.1'

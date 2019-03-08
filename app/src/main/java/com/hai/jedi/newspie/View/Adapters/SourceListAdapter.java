@@ -11,11 +11,16 @@ import android.widget.TextView;
 
 import com.hai.jedi.newspie.Models.Source;
 import com.hai.jedi.newspie.R;
+import com.hai.jedi.newspie.View.Fragments.SourceListFragment;
+import com.hai.jedi.newspie.ViewModel.SharedViewModel;
+import com.hai.jedi.newspie.ViewModel.SourceViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,10 +32,19 @@ public class SourceListAdapter
 
     private Context mContext;
     private List<Source> mSources;
+    private SharedViewModel sharedViewModel;
 
     // Our Adapter constructor.
-    public SourceListAdapter(List<Source> sources){
+    public SourceListAdapter(Context context, List<Source> sources) {
+        this.mContext = context;
         this.mSources = sources;
+
+        /* *
+        * Initializing the sharedViewModel. We use this to pass source_id data from adapter to
+        * Headline fragment.
+        * */
+        sharedViewModel = ViewModelProviders.of((FragmentActivity) mContext)
+                        .get(SharedViewModel.class);
     }
 
     // Our ViewHolder class
@@ -64,7 +78,8 @@ public class SourceListAdapter
         public void onClick(View view){
 
             int itemPosition = getLayoutPosition();
-            Log.d(TAG, mSources.get(itemPosition).getSource_name());
+            // Passing the source_id data to sharedViewModel based on source clicked
+            sharedViewModel.setSelected_sourceId(mSources.get(itemPosition).getSource_id());
 
         }
     }

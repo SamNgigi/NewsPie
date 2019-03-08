@@ -112,7 +112,7 @@ public class SourceListFragment extends Fragment {
         // Displaying the source data.
         sourceViewModel.sourcesForCategory().observe(
                 getViewLifecycleOwner(), sources -> {
-                    mRecyclerView.setAdapter(new SourceListAdapter(sources.getSource_list()));
+                    mRecyclerView.setAdapter(new SourceListAdapter(getActivity(),sources.getSource_list()));
                     Log.d(TAG, sources.getSource_list().toString());
                 }
         );

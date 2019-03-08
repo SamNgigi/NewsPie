@@ -39,17 +39,17 @@ public class HeadlineViewModel extends ViewModel{
         loadHeadlines4Source(default_source);}
 
 
-    public LiveData<HeadlineWrapper> sourceHeadlines(String source){
+    public LiveData<HeadlineWrapper> sourceHeadlines(String source_id){
         if(article_list == null){
             article_list = new MutableLiveData<>();
-            loadHeadlines4Source(source);
+            loadHeadlines4Source(source_id);
         }
         return article_list;
     }
 
-    private void loadHeadlines4Source(String source){
+    private void loadHeadlines4Source(String source_id){
         NewsPieInterface newsApiCall = NewsPieService.newApiCall();
-        Call<HeadlineWrapper> call = newsApiCall.getSourceHeadlines(source, Constants.NEWS_API_KEY);
+        Call<HeadlineWrapper> call = newsApiCall.getSourceHeadlines(source_id, Constants.NEWS_API_KEY);
 
         call.enqueue(new Callback<HeadlineWrapper>() {
             @Override

@@ -66,13 +66,6 @@ public class MainActivity
         drawerToggle = setupDrawerToggle();
         drawerLayout.addDrawerListener(drawerToggle);
 
-        headlineViewModel = ViewModelProviders.of(this).get(HeadlineViewModel.class);
-        headlineViewModel.sourceHeadlines().observe(
-                this, headlineWrapper -> {
-                    Log.d(TAG, headlineWrapper.getArticles().toString());
-                }
-        );
-
         sharedViewModel = ViewModelProviders.of(this).get(SharedViewModel.class);
     }
 

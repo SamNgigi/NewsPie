@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".View.Activities.MainActivity"
+        android:background="@color/colorPrimary"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
@@ -27,6 +28,15 @@
             android:name="com.hai.jedi.newspie.View.Fragments.SourceListFragment"
             tools:layout="@layout/fragment_category_list"
             android:id="@+id/sourceListFragment"/>
+
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.hai.jedi.newspie.View.Fragments.HeadlineListFragment"
+            tools:layout="@layout/fragment_headline_list"
+            android:id="@+id/headlineListFragment"/>
+
+
 
     </LinearLayout>
 
