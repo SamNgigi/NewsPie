@@ -101,7 +101,24 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-android-support:$daggerVersion"
 
 
+
+    // Firebase Manenos
+    // Auth
+    implementation "com.google.firebase:firebase-auth:16.1.0"
+    // Database
+    implementation "com.google.firebase:firebase-database:16.1.0"
+
+    // Firebase ui manenos
+    //Auth
+    implementation "com.firebaseui:firebase-ui-auth:4.1.0"
+    // Database
+    implementation "com.firebaseui:firebase-ui-database:4.3.1"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.2-alpha01'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 }
+
+
+// This google plugin needs to be added to the bottom
+apply plugin: "com.google.gms.google-services"
