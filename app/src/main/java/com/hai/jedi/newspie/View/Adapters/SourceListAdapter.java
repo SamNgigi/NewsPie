@@ -1,6 +1,7 @@
 package com.hai.jedi.newspie.View.Adapters;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hai.jedi.newspie.Constants;
 import com.hai.jedi.newspie.Models.Source;
@@ -27,6 +29,7 @@ import java.util.List;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
@@ -67,7 +70,7 @@ public class SourceListAdapter
         @BindView(R.id.sourceCategory)
         TextView mSourceCategory;
         @BindView(R.id.bookMark)
-        TextView sourceBookmark;
+        ImageView sourceBookmark;
 
 
 
@@ -98,31 +101,44 @@ public class SourceListAdapter
            }
            if(view == sourceBookmark){
                mSource = mSources.get(itemPosition);
+               // DB manenos
                mFavSource = FirebaseDatabase.getInstance()
                                             .getReference(Constants.FIREBASE_SOURCE_BOOKMARKS);
 
-               Toast.makeText(view.getContext(), mSource.getSource_id(),
-                              Toast.LENGTH_LONG).show();
+               // Listening for changes to persist.
                mFavSource.addListenerForSingleValueEvent(new ValueEventListener() {
                    @Override
                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                        final ArrayList<String> favSources = new ArrayList<>();
-
+                        // Loop to append snapshots to our source array.
                        for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                            // Adding a source id to a list
                            favSources.add(Objects.requireNonNull(snapshot.getValue(Source.class))
                                     .getSource_id());
-                       }
 
-                       if(favSources.contains(mSource.getSource_id())){
-                            Toast.makeText(view.getContext(),
-                                      "Source is already is already saved",
-                                           Toast.LENGTH_LONG).show();
-                       } else {
-                           mFavSource.push().setValue(mSource);
+                       }
+                        // Checking if we had persisted the source
+                       if(!favSources.contains(mSource.getSource_id())){
+                           // Setting our source Uid to the firebase push id.
+                           mSource.setSource_Uid(mFavSource.push().getKey());
+                           // Adding our source object as a child of that reference
+                           mFavSource.child(mSource.getSource_Uid()).setValue(mSource);
+                           //Log.d(TAG, pushId);
+                           sourceBookmark.setColorFilter(
+                                   ContextCompat.getColor(view.getContext(), R.color.colorPrimary));
                            Toast.makeText(view.getContext(),
-                                     "Source is saved",
-                                          Toast.LENGTH_LONG).show();
+                                   "Source is saved",
+                                   Toast.LENGTH_LONG).show();
+
+                       } else {
+                           // Removing the reference
+                           mFavSource.child(mSource.getSource_Uid()).setValue(null);
+                           // mFavSource.getRef().removeValue();
+                           Toast.makeText(view.getContext(),
+                                   "Source bookmark has been removed",
+                                   Toast.LENGTH_LONG).show();
+                           sourceBookmark.setColorFilter(
+                                   ContextCompat.getColor(view.getContext(), R.color.colorPrimaryDark));
                        }
 
                    }

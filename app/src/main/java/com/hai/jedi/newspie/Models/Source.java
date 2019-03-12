@@ -21,6 +21,7 @@ public class Source {
     @Expose
     String source_category;
     String source_index;
+    String source_Uid;
 
 
 
@@ -30,7 +31,7 @@ public class Source {
 
     public Source(
             String id, String name, String description,
-            String host_url, String category
+            String host_url, String category, String uid
     ) {
         this.source_id = id;
         this.source_name = name;
@@ -38,6 +39,7 @@ public class Source {
         this.source_url = host_url;
         this.source_category = category;
         this.source_index = "not_specified";
+        this.source_Uid = uid;
     }
 
     // Our getters & setters
@@ -74,4 +76,12 @@ public class Source {
     public void setSource_index(String new_index){
         this.source_index = new_index;
     }
+
+    public String getSource_Uid(){ return source_Uid; }
+
+    public void setSource_Uid(String new_uid){
+        this.source_Uid = new_uid;
+    }
+
+
 }

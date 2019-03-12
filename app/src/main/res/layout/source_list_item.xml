@@ -42,13 +42,14 @@
             android:layout_below="@+id/sourceName"
             android:id="@+id/sourceCategory"/>
 
-        <TextView
+        <ImageView
             android:padding="14dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_bookmark"
+            android:src="@drawable/ic_bookmark"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
+            android:contentDescription="@string/bookmarkicon"
             android:id="@+id/bookMark"/>
 
     </RelativeLayout>
