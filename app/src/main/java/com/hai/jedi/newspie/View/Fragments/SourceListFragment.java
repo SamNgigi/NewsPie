@@ -17,6 +17,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.hai.jedi.newspie.Constants;
 import com.hai.jedi.newspie.Models.Source;
 import com.hai.jedi.newspie.R;
 import com.hai.jedi.newspie.View.Adapters.SourceListAdapter;
@@ -48,6 +51,9 @@ public class SourceListFragment extends Fragment {
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
 
+    // Firebase manenos
+    private DatabaseReference mFavSource;
+
     // private OnFragmentInteractionListener mListener;
 
     public SourceListFragment() {
@@ -78,6 +84,14 @@ public class SourceListFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
+
+        /* *
+         * Initializing our Firebase
+         * */
+
+        mFavSource = FirebaseDatabase.getInstance()
+                                     .getReference()
+                                     .child(Constants.FIREBASE_SOURCE_BOOKMARKS);
 
         /* *
          * We initialize our observer here in the onActivityCreated method because we want to make
@@ -120,6 +134,9 @@ public class SourceListFragment extends Fragment {
                    /* Log.d(TAG, sources.getSource_list().toString());*/
                 }
         );
+
+
+
     }
 
     @Override

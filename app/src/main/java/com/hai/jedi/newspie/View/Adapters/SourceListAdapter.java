@@ -8,7 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.hai.jedi.newspie.Constants;
 import com.hai.jedi.newspie.Models.Source;
 import com.hai.jedi.newspie.R;
 import com.hai.jedi.newspie.View.Fragments.SourceListFragment;
@@ -17,6 +24,7 @@ import com.hai.jedi.newspie.ViewModel.SourceViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -32,7 +40,10 @@ public class SourceListAdapter
 
     private Context mContext;
     private List<Source> mSources;
+    private Source mSource;
     private SharedViewModel sharedViewModel;
+
+    private DatabaseReference mFavSource;
 
     // Our Adapter constructor.
     public SourceListAdapter(Context context, List<Source> sources) {
@@ -55,6 +66,8 @@ public class SourceListAdapter
         TextView mSourceName;
         @BindView(R.id.sourceCategory)
         TextView mSourceCategory;
+        @BindView(R.id.bookMark)
+        TextView sourceBookmark;
 
 
 
@@ -65,7 +78,8 @@ public class SourceListAdapter
             super(itemView);
             ButterKnife.bind(this, itemView);
             // Listening for a click on our recycler view
-            itemView.setOnClickListener(this);
+            mSourceName.setOnClickListener(this);
+            sourceBookmark.setOnClickListener(this);
         }
 
         public void bindSource(Source source){
@@ -78,8 +92,47 @@ public class SourceListAdapter
         public void onClick(View view){
 
             int itemPosition = getLayoutPosition();
-            // Passing the source_id data to sharedViewModel based on source clicked
-            sharedViewModel.setSelected_sourceId(mSources.get(itemPosition).getSource_id());
+           if(view == mSourceName) {
+               // Passing the source_id data to sharedViewModel based on source clicked
+               sharedViewModel.setSelected_sourceId(mSources.get(itemPosition).getSource_id());
+           }
+           if(view == sourceBookmark){
+               mSource = mSources.get(itemPosition);
+               mFavSource = FirebaseDatabase.getInstance()
+                                            .getReference(Constants.FIREBASE_SOURCE_BOOKMARKS);
+
+               Toast.makeText(view.getContext(), mSource.getSource_id(),
+                              Toast.LENGTH_LONG).show();
+               mFavSource.addListenerForSingleValueEvent(new ValueEventListener() {
+                   @Override
+                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                       final ArrayList<String> favSources = new ArrayList<>();
+
+                       for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                           // Adding a source id to a list
+                           favSources.add(Objects.requireNonNull(snapshot.getValue(Source.class))
+                                    .getSource_id());
+                       }
+
+                       if(favSources.contains(mSource.getSource_id())){
+                            Toast.makeText(view.getContext(),
+                                      "Source is already is already saved",
+                                           Toast.LENGTH_LONG).show();
+                       } else {
+                           mFavSource.push().setValue(mSource);
+                           Toast.makeText(view.getContext(),
+                                     "Source is saved",
+                                          Toast.LENGTH_LONG).show();
+                       }
+
+                   }
+
+                   @Override
+                   public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Todo - Something.
+                   }
+               });
+           }
 
         }
     }

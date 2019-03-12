@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.database.DatabaseReference;
 import com.hai.jedi.newspie.R;
 import com.hai.jedi.newspie.View.Adapters.HeadlineListAdapter;
 import com.hai.jedi.newspie.ViewModel.HeadlineViewModel;
@@ -37,6 +38,9 @@ public class HeadlineListFragment extends Fragment {
     // Headline recyclerView
     @BindView(R.id.headlineRecycler)
     RecyclerView headlineRecycler;
+
+    // Firebase  Manenos
+    private DatabaseReference mFavHeadline;
 
 
     public HeadlineListFragment() {

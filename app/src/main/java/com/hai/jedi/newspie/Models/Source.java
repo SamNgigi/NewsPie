@@ -7,20 +7,20 @@ public class Source {
 
     @SerializedName("id")
     @Expose
-    private String source_id;
+    String source_id;
     @SerializedName("name")
     @Expose
-    private String source_name;
+    String source_name;
     @SerializedName("description")
     @Expose
-    private String source_description;
+    String source_description;
     @SerializedName("url")
     @Expose
-    private String source_url;
+    String source_url;
     @SerializedName("category")
     @Expose
-    private String source_category;
-    private String source_index;
+    String source_category;
+    String source_index;
 
 
 
