@@ -1,15 +1,11 @@
 package com.hai.jedi.newspie.Services;
 
-import android.util.Log;
-
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.hai.jedi.newspie.Constants;
 import com.hai.jedi.newspie.Mappers.FirebaseMapper;
-import com.hai.jedi.newspie.Models.Source;
 import com.hai.jedi.newspie.Utils.BaseValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,19 +14,19 @@ public abstract class FirebaseService<Model> {
 
     protected DatabaseReference firebaseDb;
     protected FirebaseInterfaceCallback<Model> fbInterfaceCallback;
-    private BaseValueEventListener baseListener;
-    private FirebaseMapper mapper;
+    private BaseValueEventListener<Model, Object> baseListener;
+    private FirebaseMapper<Object, Model> mapper;
 
     protected abstract String getRootNode();
 
-    public FirebaseService(FirebaseMapper mapper){
+    public FirebaseService(FirebaseMapper<Object, Model> mapper){
         firebaseDb = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_SOURCE_BOOKMARKS);
         this.mapper = mapper;
     }
 
     public void addListener(FirebaseInterfaceCallback<Model> fbCallback){
         this.fbInterfaceCallback = fbCallback;
-        baseListener = new BaseValueEventListener(mapper, fbInterfaceCallback);
+        baseListener = new BaseValueEventListener<Model, Object>(mapper, fbInterfaceCallback);
         firebaseDb.addValueEventListener(baseListener);
     }
 
