@@ -5,7 +5,9 @@ import android.util.Log;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.hai.jedi.newspie.Constants;
+import com.hai.jedi.newspie.Mappers.FirebaseMapper;
 import com.hai.jedi.newspie.Models.Source;
+import com.hai.jedi.newspie.Utils.BaseValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +30,7 @@ public abstract class FirebaseService<Model> {
 
     public void addListener(FirebaseInterfaceCallback<Model> fbCallback){
         this.fbInterfaceCallback = fbCallback;
-        baseListener = new BaseValueEventListener(mapper, firebaseDb);
+        baseListener = new BaseValueEventListener(mapper, fbInterfaceCallback);
         firebaseDb.addValueEventListener(baseListener);
     }
 

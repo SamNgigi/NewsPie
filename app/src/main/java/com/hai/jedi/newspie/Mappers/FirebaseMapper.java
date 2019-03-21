@@ -21,9 +21,9 @@ public abstract class FirebaseMapper<Entity, Model> implements MapperInterface<E
         return list;
     }
 
+    @SuppressWarnings("unchecked")
     private Class<Entity> getEntityClass(){
         ParameterizedType superclass = (ParameterizedType) getClass().getGenericSuperclass();
-
         return (Class<Entity>) superclass.getActualTypeArguments()[0];
     }
 
