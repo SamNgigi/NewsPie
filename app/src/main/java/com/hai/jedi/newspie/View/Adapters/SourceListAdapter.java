@@ -31,6 +31,7 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
@@ -47,6 +48,7 @@ public class SourceListAdapter
     private SharedViewModel sharedViewModel;
 
     private DatabaseReference mFavSource;
+
 
     // Our Adapter constructor.
     public SourceListAdapter(Context context, List<Source> sources) {
@@ -76,6 +78,8 @@ public class SourceListAdapter
 
         private Context mContext;
 
+        private FragmentActivity fragmentActivity;
+
         // Our ViewHolder constructor
         public SourceViewHolder(View itemView){
             super(itemView);
@@ -101,7 +105,10 @@ public class SourceListAdapter
            }
            if(view == sourceBookmark){
                mSource = mSources.get(itemPosition);
-               // DB manenos
+
+
+
+               /*// DB manenos
                mFavSource = FirebaseDatabase.getInstance()
                                             .getReference(Constants.FIREBASE_SOURCE_BOOKMARKS);
 
@@ -147,7 +154,7 @@ public class SourceListAdapter
                    public void onCancelled(@NonNull DatabaseError databaseError) {
                         // Todo - Something.
                    }
-               });
+               });*/
            }
 
         }

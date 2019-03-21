@@ -2,6 +2,7 @@ package com.hai.jedi.newspie.ViewModel;
 
 import android.util.Log;
 
+import com.google.firebase.database.DatabaseReference;
 import com.hai.jedi.newspie.Constants;
 import com.hai.jedi.newspie.Services.SourcesWrapper;
 import com.hai.jedi.newspie.Services.NewsPieInterface;
@@ -48,7 +49,7 @@ public class SourceViewModel extends ViewModel {
         return sources_list;
     }
 
-
+    // Loading the top headlines
     public void loadSources4Category(String category){
         NewsPieInterface newsApiCall = NewsPieService.newApiCall();
         Call<SourcesWrapper> call = newsApiCall.getNewsSources(category, Constants.NEWS_API_KEY);
@@ -71,5 +72,12 @@ public class SourceViewModel extends ViewModel {
         });
 
     }
+
+    /*FIREBASE LOGIC*/
+    private DatabaseReference savedSources;
+
+
+
+
 
 }
