@@ -20,6 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.hai.jedi.newspie.Constants;
 import com.hai.jedi.newspie.Models.Source;
 import com.hai.jedi.newspie.R;
+import com.hai.jedi.newspie.Services.FirebaseHelper;
+import com.hai.jedi.newspie.Services.FirebaseService;
 import com.hai.jedi.newspie.View.Fragments.SourceListFragment;
 import com.hai.jedi.newspie.ViewModel.SharedViewModel;
 import com.hai.jedi.newspie.ViewModel.SourceViewModel;
@@ -46,7 +48,9 @@ public class SourceListAdapter
     private Source mSource;
     private SharedViewModel sharedViewModel;
 
-    private DatabaseReference mFavSource;
+    private DatabaseReference bookMarkedSources;
+    private FirebaseService fbService;
+    private FirebaseHelper firebaseHelper;
 
     // Our Adapter constructor.
     public SourceListAdapter(Context context, List<Source> sources) {
@@ -101,12 +105,27 @@ public class SourceListAdapter
            }
            if(view == sourceBookmark){
                mSource = mSources.get(itemPosition);
-               // DB manenos
-               mFavSource = FirebaseDatabase.getInstance()
-                                            .getReference(Constants.FIREBASE_SOURCE_BOOKMARKS);
 
+               bookMarkedSources = FirebaseDatabase.getInstance()
+                       .getReference(Constants.FIREBASE_SOURCE_BOOKMARKS);
+               fbService = new FirebaseService(bookMarkedSources);
+
+               ArrayList<String> savedSourceIds = fbService.retrieveSources(mSource).source_ids;
+
+               if(!savedSourceIds.contains(mSource.getSource_id())){
+                   Toast.makeText(view.getContext(),
+                           String.format("%s Bookmarked!", mSource.getSource_name()),
+                           Toast.LENGTH_LONG).show();
+               } else {
+                   Toast.makeText(view.getContext(),
+                           String.format("%s Bookmarked Removed!", mSource.getSource_name()),
+                           Toast.LENGTH_LONG).show();
+               }
+
+
+               // DB manenos
                // Listening for changes to persist.
-               mFavSource.addListenerForSingleValueEvent(new ValueEventListener() {
+               /*bookMarkedSources.addListenerForSingleValueEvent(new ValueEventListener() {
                    @Override
                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                        final ArrayList<String> favSources = new ArrayList<>();
@@ -120,9 +139,9 @@ public class SourceListAdapter
                         // Checking if we had persisted the source
                        if(!favSources.contains(mSource.getSource_id())){
                            // Setting our source Uid to the firebase push id.
-                           mSource.setSource_Uid(mFavSource.push().getKey());
+                           mSource.setSource_Uid(bookMarkedSources.push().getKey());
                            // Adding our source object as a child of that reference
-                           mFavSource.child(mSource.getSource_Uid()).setValue(mSource);
+                           bookMarkedSources.child(mSource.getSource_Uid()).setValue(mSource);
                            //Log.d(TAG, pushId);
                            sourceBookmark.setColorFilter(
                                    ContextCompat.getColor(view.getContext(), R.color.colorPrimary));
@@ -132,8 +151,8 @@ public class SourceListAdapter
 
                        } else {
                            // Removing the reference
-                           mFavSource.child(mSource.getSource_Uid()).setValue(null);
-                           // mFavSource.getRef().removeValue();
+                           bookMarkedSources.child(mSource.getSource_Uid()).setValue(null);
+                           // bookMarkedSources.getRef().removeValue();
                            Toast.makeText(view.getContext(),
                                    "Source bookmark has been removed",
                                    Toast.LENGTH_LONG).show();
@@ -147,7 +166,7 @@ public class SourceListAdapter
                    public void onCancelled(@NonNull DatabaseError databaseError) {
                         // Todo - Something.
                    }
-               });
+               });*/
            }
 
         }

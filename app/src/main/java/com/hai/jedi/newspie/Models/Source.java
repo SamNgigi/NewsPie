@@ -22,6 +22,7 @@ public class Source {
     String source_category;
     String source_index;
     String source_Uid;
+    Boolean saved_status;
 
 
 
@@ -40,6 +41,7 @@ public class Source {
         this.source_category = category;
         this.source_index = "not_specified";
         this.source_Uid = uid;
+        this.saved_status = null;
     }
 
     // Our getters & setters
@@ -81,6 +83,14 @@ public class Source {
 
     public void setSource_Uid(String new_uid){
         this.source_Uid = new_uid;
+    }
+
+    public Boolean getSaved_status(){
+        return saved_status;
+    }
+
+    public void setSaved_status(Boolean status){
+        this.saved_status = status;
     }
 
 

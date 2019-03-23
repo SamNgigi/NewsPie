@@ -52,7 +52,7 @@ public class SourceListFragment extends Fragment {
     RecyclerView mRecyclerView;
 
     // Firebase manenos
-    private DatabaseReference mFavSource;
+    private DatabaseReference bookMarkedSources;
 
     // private OnFragmentInteractionListener mListener;
 
@@ -89,7 +89,7 @@ public class SourceListFragment extends Fragment {
          * Initializing our Firebase
          * */
 
-        mFavSource = FirebaseDatabase.getInstance()
+        bookMarkedSources = FirebaseDatabase.getInstance()
                                      .getReference()
                                      .child(Constants.FIREBASE_SOURCE_BOOKMARKS);
 
