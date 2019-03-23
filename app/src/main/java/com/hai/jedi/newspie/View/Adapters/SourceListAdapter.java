@@ -106,6 +106,11 @@ public class SourceListAdapter
            if(view == sourceBookmark){
                mSource = mSources.get(itemPosition);
 
+               /*
+               * TODO - Remove this once here. Compare firebase and News Api
+               * TODO - In the adapter. Then just check for boolean field in Source object
+               * */
+
                bookMarkedSources = FirebaseDatabase.getInstance()
                        .getReference(Constants.FIREBASE_SOURCE_BOOKMARKS);
                fbService = new FirebaseService(bookMarkedSources);
