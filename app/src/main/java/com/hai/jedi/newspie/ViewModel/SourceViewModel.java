@@ -74,7 +74,19 @@ public class SourceViewModel extends ViewModel {
     }
 
     /*FIREBASE LOGIC*/
-    private DatabaseReference savedSources;
+    private MutableLiveData<SourcesWrapper> fbSourceList;
+
+    public LiveData<SourcesWrapper> getFbSources(){
+        if(fbSourceList == null){
+            fbSourceList = new MutableLiveData<SourcesWrapper>();
+            loadFbSources();
+        }
+        return fbSourceList;
+    }
+
+    private void loadFbSources(){
+
+    }
 
 
 
