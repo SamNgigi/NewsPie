@@ -57,10 +57,10 @@ public class HeadlineListFragment extends Fragment {
                                               .get(HeadlineViewModel.class);
 
         // Getting the source_id from our source adapter to our HeadlineListFragment.
-        sharedViewModel.getSelected_source().observe(
-                getViewLifecycleOwner(), selected_sourceId -> {
-                    Log.d(TAG, selected_sourceId);
-                    headlineViewModel.loadHeadlines4Source(selected_sourceId);
+        sharedViewModel.getSelected_sourceId().observe(
+                getViewLifecycleOwner(), selected_source -> {
+                    Log.d(TAG, selected_source);
+                    headlineViewModel.loadHeadlines4Source(selected_source);
                 }
         );
 

@@ -47,6 +47,8 @@ public class SourceListFragment extends Fragment {
     private SourceViewModel sourceViewModel;
     // Initializing SharedViewModel
     private SharedViewModel sharedViewModel;
+
+
     // Our RecyclerView
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
@@ -105,6 +107,11 @@ public class SourceListFragment extends Fragment {
                                             .get(SharedViewModel.class);
         sourceViewModel = ViewModelProviders.of(Objects.requireNonNull(this.getActivity()))
                                             .get(SourceViewModel.class);
+
+        sourceViewModel = ViewModelProviders.of(Objects.requireNonNull(this.getActivity()))
+                                            .get(SourceViewModel.class);
+
+
         /* *
          *  Got nullPointer exception when i called the below method because i forgot to initialize
          *  the ViewModel as done above.
