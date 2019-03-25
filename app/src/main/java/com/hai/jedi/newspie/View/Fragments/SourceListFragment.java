@@ -27,6 +27,8 @@ import com.hai.jedi.newspie.ViewModel.FirebaseViewModel;
 import com.hai.jedi.newspie.ViewModel.SharedViewModel;
 import com.hai.jedi.newspie.ViewModel.SourceViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class SourceListFragment extends Fragment {
@@ -140,13 +142,20 @@ public class SourceListFragment extends Fragment {
         * Displaying the source data. This is updated dynamically based on the category chosen as
         * we are calling the loadSources4Category first.
         * */
-        sourceViewModel.sourcesForCategory().observe(
-                getViewLifecycleOwner(), sources -> {
-                    firebaseViewModel.getSources().observe(
-                            getViewLifecycleOwner(), fbSources->{
-                                Log.d(TAG, String.valueOf(fbSources.size()));
 
-                                mRecyclerView.setAdapter(new SourceListAdapter(getActivity(),sources.getSource_list(), fbSources));
+
+        firebaseViewModel.getSources().observe(
+                getViewLifecycleOwner(), fbSources->{
+                    Log.d(TAG, String.valueOf(fbSources.size()));
+                    List<String> test = new ArrayList<>();
+                    for(Source s: fbSources){
+                        test.add(s.getSource_id());
+                    }
+                    Log.d(TAG, String.valueOf(test));
+
+                    sourceViewModel.sourcesForCategory().observe(
+                            getViewLifecycleOwner(), sources -> {
+                                mRecyclerView.setAdapter(new SourceListAdapter(getActivity(),sources.getSource_list(), test));
                                 /* Log.d(TAG, sources.getSource_list().toString());*/
                             }
                     );

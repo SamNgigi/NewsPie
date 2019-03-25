@@ -4,6 +4,7 @@ import com.hai.jedi.newspie.Models.Source;
 import com.hai.jedi.newspie.Services.FBSources;
 import com.hai.jedi.newspie.Utils.FDBService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModel;
 public class FirebaseViewModel extends ViewModel {
 
     private MutableLiveData<List<Source>> fbSources_list;
+    private MutableLiveData<List<String>> fbSources_ids;
     private FBSources fbSources = new FBSources();
 
     public LiveData<List<Source>> getSources(){
@@ -23,6 +25,8 @@ public class FirebaseViewModel extends ViewModel {
         return fbSources_list;
     }
 
+
+
     @Override
     protected void onCleared(){
         fbSources.removeListener();
@@ -32,6 +36,9 @@ public class FirebaseViewModel extends ViewModel {
         fbSources.addListener(new FDBService.FDBInterfaceCallBack<Source>() {
             @Override
             public void onSuccess(List<Source> result) {
+                List<String> source_ids = new ArrayList<>();
+
+
                 fbSources_list.setValue(result);
             }
 

@@ -1,6 +1,7 @@
 package com.hai.jedi.newspie.View.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.hai.jedi.newspie.Constants;
 import com.hai.jedi.newspie.Models.Source;
 import com.hai.jedi.newspie.R;
 import com.hai.jedi.newspie.Services.FirebaseService;
+import com.hai.jedi.newspie.ViewModel.FirebaseViewModel;
 import com.hai.jedi.newspie.ViewModel.SharedViewModel;
 
 import java.util.ArrayList;
@@ -35,18 +37,19 @@ public class SourceListAdapter
     private Context mContext;
     private List<Source> mSources;
     private List<Source> fSources;
-    private ArrayList<String> fbSourceList;
+    private List<String> fbSourceList;
     private Source mSource;
     private SharedViewModel sharedViewModel;
+    private FirebaseViewModel firebaseViewModel;
 
     private DatabaseReference bookMarkedSources;
     private FirebaseService fbService;
 
     // Our Adapter constructor.
-    public SourceListAdapter(Context context, List<Source> sources, List<Source> saved_sources) {
+    public SourceListAdapter(Context context, List<Source> sources, List<String> saved_sources) {
         this.mContext = context;
         this.mSources = sources;
-        this.fSources = saved_sources;
+        this.fbSourceList = saved_sources;
 
         /* *
         * Initializing the sharedViewModel. We use this to pass source_id data from adapter to
@@ -54,6 +57,11 @@ public class SourceListAdapter
         * */
         sharedViewModel = ViewModelProviders.of((FragmentActivity) mContext)
                         .get(SharedViewModel.class);
+
+        firebaseViewModel = ViewModelProviders.of((FragmentActivity) mContext)
+                        .get(FirebaseViewModel.class);
+
+
     }
 
     // Our ViewHolder class
@@ -99,9 +107,14 @@ public class SourceListAdapter
                mSource = mSources.get(itemPosition);
                sharedViewModel.setSelected_source(mSource);
 
-               bookMarkedSources = FirebaseDatabase.getInstance()
-                       .getReference(Constants.FIREBASE_SOURCE_BOOKMARKS);
-               fbService = new FirebaseService(bookMarkedSources);
+
+
+               /*for(Source s: fSources){
+                   fbSourceList.add(s.getSource_id());
+               }
+
+
+               Log.d(TAG, fbSourceList.toString());*/
 
 
                /* *
@@ -111,21 +124,26 @@ public class SourceListAdapter
                *
                * */
 
-               Source fbSource = fbService.retrieveSource(mSource);
-               if(!fbSource.getSaved_status()){
+               bookMarkedSources = FirebaseDatabase.getInstance()
+                       .getReference(Constants.FIREBASE_SOURCE_BOOKMARKS);
+               fbService = new FirebaseService(bookMarkedSources);
+               Source fSource = fbService.retrieveSource(mSource);
+               if(!fSource.getSaved_status()){
                    sourceBookmark.setColorFilter(
                            ContextCompat.getColor(view.getContext(), R.color.colorPrimary));
                    Toast.makeText(view.getContext(),
                            String.format("%s Bookmarked!", mSource.getSource_name()),
                            Toast.LENGTH_LONG).show();
+
                } else {
                    sourceBookmark.setColorFilter(
                            ContextCompat.getColor(view.getContext(), R.color.colorPrimaryDark));
-                   bookmarked = false;
                    Toast.makeText(view.getContext(),
                            String.format("%s Bookmarked Removed!", mSource.getSource_name()),
                            Toast.LENGTH_LONG).show();
+                   /*mSources.get(position).setSaved_status(true);*/
                }
+
 
            }
 
@@ -144,7 +162,24 @@ public class SourceListAdapter
     @Override
     public void onBindViewHolder(@NonNull SourceListAdapter.SourceViewHolder viewHolder,
                                 int position){
-        viewHolder.bindSource(mSources.get(position));
+        if(!fbSourceList.contains(mSources.get(position).getSource_id())){
+            viewHolder.bindSource(mSources.get(position));
+            viewHolder.sourceBookmark.setColorFilter(
+                    ContextCompat.getColor(viewHolder.sourceBookmark.getContext(),
+                                            R.color.colorPrimaryDark));
+            Toast.makeText(viewHolder.sourceBookmark.getContext(),
+                    String.format("%s Bookmarked Removed!", mSource.getSource_name()),
+                    Toast.LENGTH_LONG).show();
+        } else {
+            viewHolder.bindSource(mSources.get(position));
+            viewHolder.sourceBookmark.setColorFilter(
+                    ContextCompat.getColor(viewHolder.sourceBookmark.getContext(),
+                            R.color.colorPrimaryDark));
+            Toast.makeText(viewHolder.sourceBookmark.getContext(),
+                    String.format("%s Bookmarked Removed!", mSource.getSource_name()),
+                    Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override
