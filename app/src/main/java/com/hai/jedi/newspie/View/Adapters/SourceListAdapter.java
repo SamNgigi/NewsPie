@@ -167,17 +167,11 @@ public class SourceListAdapter
             viewHolder.sourceBookmark.setColorFilter(
                     ContextCompat.getColor(viewHolder.sourceBookmark.getContext(),
                                             R.color.colorPrimaryDark));
-            Toast.makeText(viewHolder.sourceBookmark.getContext(),
-                    String.format("%s Bookmarked Removed!", mSource.getSource_name()),
-                    Toast.LENGTH_LONG).show();
         } else {
             viewHolder.bindSource(mSources.get(position));
             viewHolder.sourceBookmark.setColorFilter(
                     ContextCompat.getColor(viewHolder.sourceBookmark.getContext(),
-                            R.color.colorPrimaryDark));
-            Toast.makeText(viewHolder.sourceBookmark.getContext(),
-                    String.format("%s Bookmarked Removed!", mSource.getSource_name()),
-                    Toast.LENGTH_LONG).show();
+                            R.color.colorPrimary));
         }
 
     }
