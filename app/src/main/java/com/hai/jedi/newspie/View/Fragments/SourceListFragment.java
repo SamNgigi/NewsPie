@@ -23,6 +23,7 @@ import com.hai.jedi.newspie.Constants;
 import com.hai.jedi.newspie.Models.Source;
 import com.hai.jedi.newspie.R;
 import com.hai.jedi.newspie.View.Adapters.SourceListAdapter;
+import com.hai.jedi.newspie.ViewModel.FirebaseViewModel;
 import com.hai.jedi.newspie.ViewModel.SharedViewModel;
 import com.hai.jedi.newspie.ViewModel.SourceViewModel;
 
@@ -47,6 +48,8 @@ public class SourceListFragment extends Fragment {
     private SourceViewModel sourceViewModel;
     // Initializing SharedViewModel
     private SharedViewModel sharedViewModel;
+    // Initializing FirebaseViewModel
+    private FirebaseViewModel firebaseViewModel;
 
 
     // Our RecyclerView
@@ -110,6 +113,8 @@ public class SourceListFragment extends Fragment {
 
         sourceViewModel = ViewModelProviders.of(Objects.requireNonNull(this.getActivity()))
                                             .get(SourceViewModel.class);
+        firebaseViewModel = ViewModelProviders.of(Objects.requireNonNull(this.getActivity()))
+                                            .get(FirebaseViewModel.class);
 
 
         /* *
@@ -137,8 +142,14 @@ public class SourceListFragment extends Fragment {
         * */
         sourceViewModel.sourcesForCategory().observe(
                 getViewLifecycleOwner(), sources -> {
-                    mRecyclerView.setAdapter(new SourceListAdapter(getActivity(),sources.getSource_list()));
-                   /* Log.d(TAG, sources.getSource_list().toString());*/
+                    firebaseViewModel.getSources().observe(
+                            getViewLifecycleOwner(), fbSources->{
+                                Log.d(TAG, String.valueOf(fbSources.size()));
+
+                                mRecyclerView.setAdapter(new SourceListAdapter(getActivity(),sources.getSource_list(), fbSources));
+                                /* Log.d(TAG, sources.getSource_list().toString());*/
+                            }
+                    );
                 }
         );
 

@@ -34,6 +34,7 @@ public class SourceListAdapter
 
     private Context mContext;
     private List<Source> mSources;
+    private List<Source> fSources;
     private ArrayList<String> fbSourceList;
     private Source mSource;
     private SharedViewModel sharedViewModel;
@@ -42,9 +43,10 @@ public class SourceListAdapter
     private FirebaseService fbService;
 
     // Our Adapter constructor.
-    public SourceListAdapter(Context context, List<Source> sources) {
+    public SourceListAdapter(Context context, List<Source> sources, List<Source> saved_sources) {
         this.mContext = context;
         this.mSources = sources;
+        this.fSources = saved_sources;
 
         /* *
         * Initializing the sharedViewModel. We use this to pass source_id data from adapter to
