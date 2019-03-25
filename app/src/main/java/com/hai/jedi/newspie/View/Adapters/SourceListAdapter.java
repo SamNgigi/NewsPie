@@ -106,7 +106,7 @@ public class SourceListAdapter
                *  Todo - persist the ui state, using onSavedState
                *  Todo - refresh ui state by syncing api call list with firebase
                *  Todo - May have to migrate to firestore
-               *  
+               *
                * */
 
                Source fbSource = fbService.retrieveSource(mSource);
