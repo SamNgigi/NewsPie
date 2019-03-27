@@ -46,10 +46,12 @@ public class SourceListAdapter
     private FirebaseService fbService;
 
     // Our Adapter constructor.
-    public SourceListAdapter(Context context, List<Source> sources, List<String> saved_sources) {
+    public SourceListAdapter(Context context, List<Source> sources,
+                             List<String> saved_sources, List<Source> fbSources) {
         this.mContext = context;
         this.mSources = sources;
         this.fbSourceList = saved_sources;
+        this.fSources = fbSources;
 
         /* *
         * Initializing the sharedViewModel. We use this to pass source_id data from adapter to
@@ -127,8 +129,9 @@ public class SourceListAdapter
                bookMarkedSources = FirebaseDatabase.getInstance()
                        .getReference(Constants.FIREBASE_SOURCE_BOOKMARKS);
                fbService = new FirebaseService(bookMarkedSources);
-               Source fSource = fbService.retrieveSource(mSource);
-               if(!fSource.getSaved_status()){
+              /* Source fSource = fbService.retrieveSource(mSource);*/
+               if(!mSource.getSaved_status()){
+                   fbService.addSource(mSource);
                    sourceBookmark.setColorFilter(
                            ContextCompat.getColor(view.getContext(), R.color.colorPrimary));
                    Toast.makeText(view.getContext(),
@@ -136,6 +139,8 @@ public class SourceListAdapter
                            Toast.LENGTH_LONG).show();
 
                } else {
+                   Log.d(TAG, mSource.getSource_Uid());
+                   fbService.removeSource(mSource);
                    sourceBookmark.setColorFilter(
                            ContextCompat.getColor(view.getContext(), R.color.colorPrimaryDark));
                    Toast.makeText(view.getContext(),
@@ -168,6 +173,8 @@ public class SourceListAdapter
                     ContextCompat.getColor(viewHolder.sourceBookmark.getContext(),
                                             R.color.colorPrimaryDark));
         } else {
+            int fSourceIndex = fbSourceList.indexOf(mSources.get(position).getSource_id());
+            mSources.set(position, fSources.get(fSourceIndex));
             viewHolder.bindSource(mSources.get(position));
             viewHolder.sourceBookmark.setColorFilter(
                     ContextCompat.getColor(viewHolder.sourceBookmark.getContext(),

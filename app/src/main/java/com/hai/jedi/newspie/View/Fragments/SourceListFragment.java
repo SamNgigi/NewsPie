@@ -147,15 +147,15 @@ public class SourceListFragment extends Fragment {
         firebaseViewModel.getSources().observe(
                 getViewLifecycleOwner(), fbSources->{
                     Log.d(TAG, String.valueOf(fbSources.size()));
-                    List<String> test = new ArrayList<>();
+                    List<String> source_ids = new ArrayList<>();
                     for(Source s: fbSources){
-                        test.add(s.getSource_id());
+                        source_ids.add(s.getSource_id());
                     }
-                    Log.d(TAG, String.valueOf(test));
+                    Log.d(TAG, String.valueOf(source_ids));
 
                     sourceViewModel.sourcesForCategory().observe(
                             getViewLifecycleOwner(), sources -> {
-                                mRecyclerView.setAdapter(new SourceListAdapter(getActivity(),sources.getSource_list(), test));
+                                mRecyclerView.setAdapter(new SourceListAdapter(getActivity(),sources.getSource_list(), source_ids, fbSources));
                                 /* Log.d(TAG, sources.getSource_list().toString());*/
                             }
                     );

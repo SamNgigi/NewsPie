@@ -46,12 +46,24 @@ public class FBSourceModel {
         return source_name;
     }
 
+    public void setSource_name(String name){
+        this.source_name = name;
+    }
+
     public String getSource_description(){
         return source_description;
     }
 
+    public void setSource_description(String description){
+        this.source_description = description;
+    }
+
     public String getSource_url(){
         return source_url;
+    }
+
+    public void setSource_url(String url){
+        this.source_url = url;
     }
 
     public String getSource_category(){

@@ -29,17 +29,17 @@ public class FirebaseService {
 
 
     // we need to load this data asynchronously.
-    public Source retrieveSource(Source source){
+    /*public Source retrieveSource(Source source){
         firebaseDB.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                /*firebaseHelper.clearSourceArrays();*/
+                *//*firebaseHelper.clearSourceArrays();*//*
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                     // Adding firebase queried sources to source_objects
                     saved_Ids.add(Objects.requireNonNull(snapshot.getValue(Source.class))
                             .getSource_id());
-                    /*source_objects.getSource_list().add(snapshot.getValue(Source.class));*/
+                    *//*source_objects.getSource_list().add(snapshot.getValue(Source.class));*//*
 
                 }
 
@@ -62,6 +62,18 @@ public class FirebaseService {
             }
         });
         return source;
+    }*/
+
+
+    public void addSource(Source source){
+        source.setSource_Uid(firebaseDB.push().getKey());
+        source.setSaved_status(true);
+        firebaseDB.child(source.getSource_Uid()).setValue(source);
+    }
+
+    public void removeSource(Source source){
+        source.setSaved_status(false);
+        firebaseDB.child(source.getSource_Uid()).removeValue();
     }
 
 
