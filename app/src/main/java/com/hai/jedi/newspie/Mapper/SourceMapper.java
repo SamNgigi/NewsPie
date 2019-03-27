@@ -4,7 +4,9 @@ import com.hai.jedi.newspie.Models.FBSourceModel;
 import com.hai.jedi.newspie.Models.Source;
 
 public class SourceMapper extends FirebaseMapper<FBSourceModel, Source>{
-
+    /**
+     * We use this class to map the firebase snapshot to a source to our  our source. We tha
+     * */
     @Override
     public Source map(FBSourceModel fbSource){
         Source source = new Source();

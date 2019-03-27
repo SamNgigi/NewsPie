@@ -3,9 +3,9 @@ package com.hai.jedi.newspie.Services;
 import com.hai.jedi.newspie.Constants;
 import com.hai.jedi.newspie.Mapper.SourceMapper;
 import com.hai.jedi.newspie.Models.Source;
-import com.hai.jedi.newspie.Utils.FDBService;
+import com.hai.jedi.newspie.Utils.FDBAbstractClass;
 
-public class FBSources extends FDBService<Source> {
+public class FBSources extends FDBAbstractClass<Source> {
 
     public FBSources(){
         super(new SourceMapper());

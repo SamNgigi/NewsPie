@@ -2,7 +2,7 @@ package com.hai.jedi.newspie.ViewModel;
 
 import com.hai.jedi.newspie.Models.Source;
 import com.hai.jedi.newspie.Services.FBSources;
-import com.hai.jedi.newspie.Utils.FDBService;
+import com.hai.jedi.newspie.Utils.FDBAbstractClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +32,9 @@ public class FirebaseViewModel extends ViewModel {
         fbSources.removeListener();
     }
 
+
     private void loadFbSources(){
-        fbSources.addListener(new FDBService.FDBInterfaceCallBack<Source>() {
+        fbSources.addListener(new FDBAbstractClass.FDBInterfaceCallBack<Source>() {
             @Override
             public void onSuccess(List<Source> result) {
                 List<String> source_ids = new ArrayList<>();

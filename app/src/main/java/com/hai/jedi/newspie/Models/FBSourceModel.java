@@ -14,7 +14,12 @@ public class FBSourceModel {
     private boolean saved_status;
 
 
-
+    /**
+     * This class represents the data as received from firebase which is distinctly different from the
+     * one from our articles api.
+     *
+     * We use to set our saved status and our source uid.
+     * */
 
     // Empty constructor for our Parceler;
     public FBSourceModel(){}

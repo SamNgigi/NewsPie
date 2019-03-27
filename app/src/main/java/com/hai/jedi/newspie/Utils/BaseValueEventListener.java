@@ -7,13 +7,17 @@ import com.hai.jedi.newspie.Mapper.FirebaseMapper;
 
 import java.util.List;
 
+/**
+ * We use this class to query from firebase, then return a list with the appropriate model inside.
+ * */
 public class BaseValueEventListener<Entity, Model> implements ValueEventListener {
 
     private FirebaseMapper<Entity, Model> firebaseMapper;
-    private FDBService.FDBInterfaceCallBack<Model> callBack;
+    private FDBAbstractClass.FDBInterfaceCallBack<Model> callBack;
+
 
     public BaseValueEventListener(FirebaseMapper<Entity, Model> mapper,
-                                  FDBService.FDBInterfaceCallBack<Model> callBack){
+                                  FDBAbstractClass.FDBInterfaceCallBack<Model> callBack){
         this.firebaseMapper = mapper;
         this.callBack = callBack;
     }
