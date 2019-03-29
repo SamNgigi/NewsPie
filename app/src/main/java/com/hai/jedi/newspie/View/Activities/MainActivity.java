@@ -51,7 +51,7 @@ public class MainActivity
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-        // Makes sure the nav svg icons have their original color
+        // Makes sure the nav svg icons have their origjinal color
         navView.setItemIconTintList(null);
         // Listening for selection
         navView.setNavigationItemSelectedListener(this);

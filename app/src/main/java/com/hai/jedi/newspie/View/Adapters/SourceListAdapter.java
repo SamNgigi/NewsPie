@@ -109,21 +109,8 @@ public class SourceListAdapter
                mSource = mSources.get(itemPosition);
                sharedViewModel.setSelected_source(mSource);
 
-
-
-               /*for(Source s: fSources){
-                   fbSourceList.add(s.getSource_id());
-               }
-
-
-               Log.d(TAG, fbSourceList.toString());*/
-
-
                /* *
-               *  Todo - persist the ui state, using onSavedState
-               *  Todo - refresh ui state by syncing api call list with firebase
-               *  Todo - May have to migrate to firestore
-               *
+               *  Todo - May have to migrate to fire-store
                * */
 
                bookMarkedSources = FirebaseDatabase.getInstance()
@@ -146,7 +133,6 @@ public class SourceListAdapter
                    Toast.makeText(view.getContext(),
                            String.format("%s Bookmarked Removed!", mSource.getSource_name()),
                            Toast.LENGTH_LONG).show();
-                   /*mSources.get(position).setSaved_status(true);*/
                }
 
 

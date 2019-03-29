@@ -58,9 +58,6 @@ public class SourceListFragment extends Fragment {
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
 
-    // Firebase manenos
-    private DatabaseReference bookMarkedSources;
-
     // private OnFragmentInteractionListener mListener;
 
     public SourceListFragment() {
@@ -92,13 +89,6 @@ public class SourceListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
 
-        /* *
-         * Initializing our Firebase
-         * */
-
-        bookMarkedSources = FirebaseDatabase.getInstance()
-                                     .getReference()
-                                     .child(Constants.FIREBASE_SOURCE_BOOKMARKS);
 
         /* *
          * We initialize our observer here in the onActivityCreated method because we want to make
