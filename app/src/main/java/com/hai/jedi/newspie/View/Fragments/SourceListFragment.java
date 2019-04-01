@@ -131,6 +131,10 @@ public class SourceListFragment extends Fragment {
         /*
         * Displaying the source data. This is updated dynamically based on the category chosen as
         * we are calling the loadSources4Category first.
+        *
+        * Here we call our firebase view model get sources first so that we can sync up the UI with
+        * both sources from our database and sources from out Api call
+        *
         * */
 
 

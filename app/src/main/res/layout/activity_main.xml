@@ -35,7 +35,12 @@
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_headline_list" />
 
-
+        <fragment
+            android:id="@+id/firebaseListFragment"
+            android:name="com.hai.jedi.newspie.View.Fragments.SavedSourceFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/firebase_fragment"/>
 
     </LinearLayout>
 
