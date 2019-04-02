@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hai.jedi.newspie.R;
+import com.hai.jedi.newspie.View.Adapters.FirebaseSourceAdapter;
 import com.hai.jedi.newspie.ViewModel.FirebaseViewModel;
 import com.hai.jedi.newspie.ViewModel.SharedViewModel;
 
@@ -16,21 +17,30 @@ import java.util.Objects;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SavedSourceFragment extends Fragment {
+public class FBSourcesFragment extends Fragment {
 
-    private static final String TAG = SavedSourceFragment.class.getSimpleName().toUpperCase();
+    private static final String TAG = FBSourcesFragment.class.getSimpleName().toUpperCase();
 
     private SharedViewModel sharedViewModel;
     private FirebaseViewModel firebaseViewModel;
 
+    @BindView(R.id.firebaseRecyclerView)
+    RecyclerView fbRecyclerView;
 
-    public SavedSourceFragment() {
+
+    public FBSourcesFragment() {
         // Required empty public constructor
     }
+
+
 
 
     @Override
@@ -49,6 +59,13 @@ public class SavedSourceFragment extends Fragment {
                                             .get(SharedViewModel.class);
         firebaseViewModel = ViewModelProviders.of(Objects.requireNonNull(this.getActivity()))
                                                 .get(FirebaseViewModel.class);
+
+
+        firebaseViewModel.getSources().observe(
+                getViewLifecycleOwner(), fbSources -> {
+                    fbRecyclerView.setAdapter(new FirebaseSourceAdapter(getActivity(), fbSources));
+                }
+        );
     }
 
 
@@ -56,7 +73,13 @@ public class SavedSourceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.firebase_fragment, container, false);
+        View view = inflater.inflate(R.layout.firebase_fragment, container, false);
+        ButterKnife.bind(this, view);
+        fbRecyclerView.setHasFixedSize(true);
+        fbRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),
+                                        LinearLayoutManager.HORIZONTAL,
+                                        false));
+        return view;
     }
 
 }

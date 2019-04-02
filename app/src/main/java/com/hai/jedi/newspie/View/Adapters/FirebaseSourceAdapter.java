@@ -1,16 +1,22 @@
 package com.hai.jedi.newspie.View.Adapters;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.android.material.chip.Chip;
 import com.hai.jedi.newspie.Models.Source;
+import com.hai.jedi.newspie.R;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class FirebaseSourceAdapter extends RecyclerView.Adapter<FirebaseSourceAdapter.FBViewHolder> {
 
@@ -25,8 +31,19 @@ public class FirebaseSourceAdapter extends RecyclerView.Adapter<FirebaseSourceAd
     public class FBViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener{
 
+        @BindView(R.id.savedSourceChip)
+        Chip fbSourceChip;
+
+
         public FBViewHolder(@NonNull View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
+           /* fbSourceChip.setOnClickListener(this);
+            fbSourceChip.setOnCloseIconClickListener(this);*/
+        }
+
+        public void bindSource(Source source){
+            fbSourceChip.setChipText(source.getSource_name());
         }
 
         /**
@@ -44,12 +61,30 @@ public class FirebaseSourceAdapter extends RecyclerView.Adapter<FirebaseSourceAd
     @NonNull
     @Override
     public FirebaseSourceAdapter.FBViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+       View view = LayoutInflater.from(parent.getContext())
+                                 .inflate(R.layout.firebase_source_item, parent, false);
+       return new FBViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull FirebaseSourceAdapter.FBViewHolder holder, int position) {
+        holder.bindSource(fSources.get(position));
 
+        /*holder.fbSourceChip.setOnCloseIconClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "You clicked the close icon", Toast.LENGTH_LONG)
+                        .show();
+            }
+        });*/
+
+        /*holder.fbSourceChip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "You the chip", Toast.LENGTH_LONG)
+                        .show();
+            }
+        });*/
     }
 
     /**
@@ -59,7 +94,7 @@ public class FirebaseSourceAdapter extends RecyclerView.Adapter<FirebaseSourceAd
      */
     @Override
     public int getItemCount() {
-        return 0;
+        return fSources.size();
     }
 
 

@@ -149,7 +149,11 @@ public class SourceListFragment extends Fragment {
 
                     sourceViewModel.sourcesForCategory().observe(
                             getViewLifecycleOwner(), sources -> {
-                                mRecyclerView.setAdapter(new SourceListAdapter(getActivity(),sources.getSource_list(), source_ids, fbSources));
+                                mRecyclerView.setAdapter(
+                                        new SourceListAdapter(
+                                                getActivity(),sources.getSource_list(),
+                                                source_ids, fbSources)
+                                );
                                 /* Log.d(TAG, sources.getSource_list().toString());*/
                             }
                     );

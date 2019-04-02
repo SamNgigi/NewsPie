@@ -78,10 +78,6 @@ public class SourceListAdapter
         ImageView sourceBookmark;
 
 
-
-        private Context mContext;
-        private boolean bookmarked = false;
-
         // Our ViewHolder constructor
         public SourceViewHolder(View itemView){
             super(itemView);
@@ -144,7 +140,7 @@ public class SourceListAdapter
     // Required RecyclerView override methods
     @NonNull
     @Override
-    public SourceListAdapter.SourceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int ViewType){
+    public SourceListAdapter.SourceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         View view = LayoutInflater.from(parent.getContext())
                                   .inflate(R.layout.source_list_item, parent, false);
         return new SourceViewHolder(view);

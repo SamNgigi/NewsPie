@@ -29,18 +29,18 @@
             tools:layout="@layout/fragment_category_list" />
 
         <fragment
+            android:id="@+id/firebaseListFragment"
+            android:name="com.hai.jedi.newspie.View.Fragments.FBSourcesFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/firebase_fragment" />
+
+        <fragment
             android:id="@+id/headlineListFragment"
             android:name="com.hai.jedi.newspie.View.Fragments.HeadlineListFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_headline_list" />
-
-        <fragment
-            android:id="@+id/firebaseListFragment"
-            android:name="com.hai.jedi.newspie.View.Fragments.SavedSourceFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:layout="@layout/firebase_fragment"/>
 
     </LinearLayout>
 
