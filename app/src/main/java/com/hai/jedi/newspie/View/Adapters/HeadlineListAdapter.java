@@ -52,6 +52,9 @@ public class HeadlineListAdapter
         @BindView(R.id.toArticle)
         TextView toFullArticle;
 
+        @BindView(R.id.sourceName)
+        TextView sourceName;
+
 
 
 
@@ -71,6 +74,7 @@ public class HeadlineListAdapter
             description.setText(headline.getDescription());
             publishedAt.setText(headline.getPublished_at());
             toFullArticle.setOnClickListener(this);
+            sourceName.setText(headline.getSource().getSource_name());
         }
 
 

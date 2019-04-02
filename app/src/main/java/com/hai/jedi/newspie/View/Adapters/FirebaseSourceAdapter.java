@@ -1,6 +1,7 @@
 package com.hai.jedi.newspie.View.Adapters;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.hai.jedi.newspie.ViewModel.SharedViewModel;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
@@ -90,18 +92,30 @@ public class FirebaseSourceAdapter extends RecyclerView.Adapter<FirebaseSourceAd
                                                     .getReference(Constants.FIREBASE_SOURCE_BOOKMARKS);
                 fbService = new FirebaseService(bookMarkedSources);
                 fbService.removeSource(fSources.get(position));
-                Toast.makeText(v.getContext(), String.format("%s removed from bookmarks!",
+                Toast toast_message = Toast.makeText(v.getContext(), String.format("%s removed from bookmarks!",
                                 fSources.get(position).getSource_name()),
-                                Toast.LENGTH_LONG)
-                                .show();
+                                Toast.LENGTH_LONG);
+                View toast_view =  toast_message.getView();
+                toast_view.getBackground()
+                          .setColorFilter(ContextCompat.getColor(toast_view.getContext(),
+                                            R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
+                toast_message.show();
             }
         });
 
         holder.fbSourceChip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "You selected the chip", Toast.LENGTH_LONG)
-                        .show();
+                /* Code for modifying toast background-color */
+                Toast toast_message = Toast.makeText(v.getContext(),
+                        String.format("Loading %s headlines!",
+                        fSources.get(position).getSource_name()),
+                        Toast.LENGTH_LONG);
+                View toast_view =  toast_message.getView();
+                toast_view.getBackground()
+                        .setColorFilter(ContextCompat.getColor(toast_view.getContext(),
+                                R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
+                toast_message.show();
                 sharedViewModel.setSelected_sourceId(fSources.get(position).getSource_id());
             }
         });

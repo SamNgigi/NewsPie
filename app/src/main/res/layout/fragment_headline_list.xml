@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
     android:padding="10dp"
     android:background="@color/grey"
     tools:context=".View.Fragments.HeadlineListFragment">
@@ -11,7 +10,6 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:id="@+id/headlineRecycler"/>
 
 </LinearLayout>

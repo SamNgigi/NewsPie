@@ -1,6 +1,7 @@
 package com.hai.jedi.newspie.View.Adapters;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,6 +99,16 @@ public class SourceListAdapter
 
             int itemPosition = getLayoutPosition();
            if(view == mSourceName) {
+               /*Toast Edit manenos*/
+               Toast toast_message = Toast.makeText(view.getContext(),
+                       String.format("Loading %s headlines!",
+                               mSources.get(itemPosition).getSource_name()),
+                       Toast.LENGTH_LONG);
+               View toast_view =  toast_message.getView();
+               toast_view.getBackground()
+                       .setColorFilter(ContextCompat.getColor(toast_view.getContext(),
+                               R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
+               toast_message.show();
                // Passing the source_id data to sharedViewModel based on source clicked
                sharedViewModel.setSelected_sourceId(mSources.get(itemPosition).getSource_id());
            }
@@ -117,18 +128,31 @@ public class SourceListAdapter
                    fbService.addSource(mSource);
                    sourceBookmark.setColorFilter(
                            ContextCompat.getColor(view.getContext(), R.color.colorPrimary));
-                   Toast.makeText(view.getContext(),
-                           String.format("%s Bookmarked!", mSource.getSource_name()),
-                           Toast.LENGTH_LONG).show();
+
+                   Toast toast_message = Toast.makeText(view.getContext(),
+                           String.format("%s bookmarked!",
+                                   mSource.getSource_name()),
+                           Toast.LENGTH_LONG);
+                   View toast_view =  toast_message.getView();
+                   toast_view.getBackground()
+                           .setColorFilter(ContextCompat.getColor(toast_view.getContext(),
+                                   R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
+                   toast_message.show();
 
                } else {
                    Log.d(TAG, mSource.getSource_Uid());
                    fbService.removeSource(mSource);
                    sourceBookmark.setColorFilter(
                            ContextCompat.getColor(view.getContext(), R.color.colorPrimaryDark));
-                   Toast.makeText(view.getContext(),
-                           String.format("%s Bookmarked Removed!", mSource.getSource_name()),
-                           Toast.LENGTH_LONG).show();
+                   Toast toast_message = Toast.makeText(view.getContext(),
+                           String.format("%s Bookmarked Removed!",
+                                   mSource.getSource_name()),
+                           Toast.LENGTH_LONG);
+                   View toast_view =  toast_message.getView();
+                   toast_view.getBackground()
+                           .setColorFilter(ContextCompat.getColor(toast_view.getContext(),
+                                   R.color.colorPrimaryDark), PorterDuff.Mode.SRC_IN);
+                   toast_message.show();
                }
 
 
