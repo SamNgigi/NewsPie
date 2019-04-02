@@ -8,12 +8,19 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.hai.jedi.newspie.Constants;
 import com.hai.jedi.newspie.Models.Source;
 import com.hai.jedi.newspie.R;
+import com.hai.jedi.newspie.Services.FirebaseService;
+import com.hai.jedi.newspie.ViewModel.SharedViewModel;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,10 +29,16 @@ public class FirebaseSourceAdapter extends RecyclerView.Adapter<FirebaseSourceAd
 
     private Context mContext;
     private List<Source> fSources;
+    private SharedViewModel sharedViewModel;
+    private DatabaseReference bookMarkedSources;
+    private FirebaseService fbService;
 
     public FirebaseSourceAdapter(Context context, List<Source> fbSources){
         this.mContext = context;
         this.fSources = fbSources;
+
+        sharedViewModel = ViewModelProviders.of((FragmentActivity) mContext)
+                .get(SharedViewModel.class);
     }
 
     public class FBViewHolder extends RecyclerView.ViewHolder
@@ -70,21 +83,28 @@ public class FirebaseSourceAdapter extends RecyclerView.Adapter<FirebaseSourceAd
     public void onBindViewHolder(@NonNull FirebaseSourceAdapter.FBViewHolder holder, int position) {
         holder.bindSource(fSources.get(position));
 
-        /*holder.fbSourceChip.setOnCloseIconClickListener(new View.OnClickListener() {
+        holder.fbSourceChip.setOnCloseIconClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "You clicked the close icon", Toast.LENGTH_LONG)
-                        .show();
+                bookMarkedSources = FirebaseDatabase.getInstance()
+                                                    .getReference(Constants.FIREBASE_SOURCE_BOOKMARKS);
+                fbService = new FirebaseService(bookMarkedSources);
+                fbService.removeSource(fSources.get(position));
+                Toast.makeText(v.getContext(), String.format("%s removed from bookmarks!",
+                                fSources.get(position).getSource_name()),
+                                Toast.LENGTH_LONG)
+                                .show();
             }
-        });*/
+        });
 
-        /*holder.fbSourceChip.setOnClickListener(new View.OnClickListener() {
+        holder.fbSourceChip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "You the chip", Toast.LENGTH_LONG)
+                Toast.makeText(v.getContext(), "You selected the chip", Toast.LENGTH_LONG)
                         .show();
+                sharedViewModel.setSelected_sourceId(fSources.get(position).getSource_id());
             }
-        });*/
+        });
     }
 
     /**
