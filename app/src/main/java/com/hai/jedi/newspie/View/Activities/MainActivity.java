@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.view.MenuItem;
 import android.util.Log;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.hai.jedi.newspie.R;
 import com.hai.jedi.newspie.ViewModel.HeadlineViewModel;
 import com.hai.jedi.newspie.ViewModel.SharedViewModel;
@@ -48,15 +51,21 @@ public class MainActivity
     private String username, img_url;
     private Uri photo;
 
+    FirebaseAuth fbAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        fbAuth = FirebaseAuth.getInstance();
+
         username = getIntent().getStringExtra("username");
         img_url = getIntent().getStringExtra("image");
-        photo = Uri.parse(img_url);
+        /*photo = Uri.parse(img_url);*/
+
+        Log.d(TAG, String.format("Username: %s\n Image url:%s\n", username, img_url));
 
         ButterKnife.bind(this);
         // Makes sure the nav svg icons have their original color
@@ -140,6 +149,15 @@ public class MainActivity
         }
 
         return true;
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        FirebaseUser user = fbAuth.getCurrentUser();
+        if(user == null){
+            Intent intent = new Intent(this, CreateAccountActivity.class);
+        }
     }
 
 

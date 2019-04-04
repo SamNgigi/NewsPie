@@ -25,12 +25,15 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import butterknife.ButterKnife;
 import butterknife.BindView;
 
+import com.hai.jedi.newspie.Constants;
 import com.hai.jedi.newspie.R;
+
+import java.util.Objects;
 
 
 public class CreateAccountActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = CreateAccountActivity.class.getSimpleName().toUpperCase();
-    private static final int RC_SIGN_IN = 1;
+    private static final int RC_SIGN_IN = 9001;
 
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth fbAuth;
@@ -49,19 +52,29 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
         googleBtn.setOnClickListener(this);
 
-        fbAuth = FirebaseAuth.getInstance();
 
-        GoogleSignInOptions gSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN.DEFAULT_SIGN_IN)
-                                                                    .requestIdToken(getString(R.string.default_web_client_id))
-                                                                    .requestEmail()
-                                                                    .build();
+        GoogleSignInOptions gSignInOptions = new GoogleSignInOptions
+                                            .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                                            .requestIdToken("712847015969-mmcfgog0hejf7tkrqpcnmv5s8o8vqtb8.apps.googleusercontent.com")
+                                            .requestEmail()
+                                            .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gSignInOptions);
+
+        fbAuth = FirebaseAuth.getInstance();
+
     }
 
-    private void signIn(){
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        /*Check if user is already signed in (non-null) and update UI accordingly*/
+        FirebaseUser currentUser = fbAuth.getCurrentUser();
+        if(currentUser != null){
+            updateUI(currentUser);
+        }
+
     }
 
     @Override
@@ -71,32 +84,21 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         /*Result returned from launching the Intent from mGoogleSignInApi.getSignInIntent()*/
         if(requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-
             try{
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                assert account != null;
-                fbAuthWithGoogle(account);
+                fbAuthWithGoogle(Objects.requireNonNull(account));
             } catch(ApiException exception){
                 // Google SignIn Failed. Update UI appropriately
                 Log.w(TAG, "Google sign in failed", exception);
+                exception.printStackTrace();
             }
         }
     }
 
-    @Override
-    public void onStart(){
-        super.onStart();
-
-        /*Check if user is already signed in (non-null) and update UI accordingly*/
-        FirebaseUser currentUser = fbAuth.getCurrentUser();
-        assert currentUser != null;
-        updateUI(currentUser);
-    }
-
     private void fbAuthWithGoogle(GoogleSignInAccount account) {
         Log.d(TAG,  String.format("Firebase Auth With Google: %s Name: %s",
-                    account.getId(), account.getDisplayName()));
+                account.getId(), account.getDisplayName()));
 
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
 
@@ -123,12 +125,9 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                 });
     }
 
-    @Override
-    public void onClick(View view){
-        if(view == googleBtn){
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
+    private void signIn(){
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     private void updateUI(FirebaseUser user){
@@ -140,6 +139,15 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         intent.putExtra("username", username);
         intent.putExtra("image", img_url);
         startActivity(intent);
+    }
+
+
+
+    @Override
+    public void onClick(View view){
+        if(view == googleBtn){
+            signIn();
+        }
     }
 
 
