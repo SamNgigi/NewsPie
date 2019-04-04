@@ -15,8 +15,12 @@
       },
       "oauth_client": [
         {
-          "client_id": "712847015969-mmcfgog0hejf7tkrqpcnmv5s8o8vqtb8.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "712847015969-6qbajqvcadohp395nfvjdppoadskv3ld.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hai.jedi.newspie",
+            "certificate_hash": "d1192454415d20ecbf5760cda6c964688a7b9fb8"
+          }
         }
       ],
       "api_key": [
@@ -25,15 +29,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712847015969-mmcfgog0hejf7tkrqpcnmv5s8o8vqtb8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -9,6 +9,20 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:gravity="bottom">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_user"
+        android:contentDescription="@string/user_placeholder"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/test_user"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textColor="@color/mintCream"
+        android:id="@+id/usernameTxt"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,5 +30,7 @@
         android:textAlignment="center"
         android:textSize="20sp"
         android:textColor="@color/colorPrimary"/>
+
+
 
 </LinearLayout>

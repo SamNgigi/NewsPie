@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.util.Log;
@@ -44,14 +45,21 @@ public class MainActivity
             "business", "entertainment", "general", "health", "science", "sports", "technology"
     };
 
+    private String username, img_url;
+    private Uri photo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        username = getIntent().getStringExtra("username");
+        img_url = getIntent().getStringExtra("image");
+        photo = Uri.parse(img_url);
+
         ButterKnife.bind(this);
-        // Makes sure the nav svg icons have their origjinal color
+        // Makes sure the nav svg icons have their original color
         navView.setItemIconTintList(null);
         // Listening for selection
         navView.setNavigationItemSelectedListener(this);
