@@ -3,6 +3,7 @@ package com.hai.jedi.newspie.View.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,6 +39,8 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth fbAuth;
 
+    private ProgressDialog mAuthProgressDialog;
+
    @BindView(R.id.signUpButton)
     SignInButton googleBtn;
 
@@ -52,6 +55,8 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
         googleBtn.setOnClickListener(this);
 
+        createAuthProgressDialog();
+
 
         GoogleSignInOptions gSignInOptions = new GoogleSignInOptions
                                             .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -63,6 +68,13 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
 
         fbAuth = FirebaseAuth.getInstance();
 
+    }
+
+    public void createAuthProgressDialog(){
+        mAuthProgressDialog = new ProgressDialog(this);
+        mAuthProgressDialog.setTitle("Loading...");
+        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
+        mAuthProgressDialog.setCancelable(false);
     }
 
     @Override
@@ -101,7 +113,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                 account.getId(), account.getDisplayName()));
 
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-
+        mAuthProgressDialog.show();
         fbAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -110,6 +122,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                             /*Sign in successful update UI with the signed in users's information*/
                             FirebaseUser current_user = fbAuth.getCurrentUser();
                             updateUI(current_user);
+                            mAuthProgressDialog.dismiss();
                         } else{
                             /*If sign in fails, display a message to the user*/
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
