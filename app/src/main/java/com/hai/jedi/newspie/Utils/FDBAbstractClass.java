@@ -1,10 +1,13 @@
 package com.hai.jedi.newspie.Utils;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.hai.jedi.newspie.Mapper.FirebaseMapper;
 
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -23,7 +26,9 @@ public abstract class FDBAbstractClass<Model> {
      * We create a constructor with our mapper that converts a datasnapshot to the object we desire
      * */
     public FDBAbstractClass(FirebaseMapper mapper){
-        databaseReference = FirebaseDatabase.getInstance().getReference(getRootNode());
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String user_uid = Objects.requireNonNull(user).getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference(getRootNode()).child(user_uid);
         this.mapper = mapper;
     }
 

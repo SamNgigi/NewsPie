@@ -23,6 +23,7 @@ public class Source {
     String source_index;
     String source_Uid;
     boolean saved_status;
+    private String pushId;
 
 
 
@@ -103,6 +104,16 @@ public class Source {
 
     public void setSaved_status(boolean status){
         this.saved_status = status;
+    }
+
+
+    /*For attaching Source object to User*/
+    public String getPushId(){
+        return pushId;
+    }
+
+    public void setPushId(String pushId){
+        this.pushId = pushId;
     }
 
 

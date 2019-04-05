@@ -9,6 +9,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.hai.jedi.newspie.Constants;
@@ -18,6 +20,7 @@ import com.hai.jedi.newspie.Services.FirebaseService;
 import com.hai.jedi.newspie.ViewModel.SharedViewModel;
 
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -88,8 +91,11 @@ public class FirebaseSourceAdapter extends RecyclerView.Adapter<FirebaseSourceAd
         holder.fbSourceChip.setOnCloseIconClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+                String current_userId = Objects.requireNonNull(current_user).getUid();
                 bookMarkedSources = FirebaseDatabase.getInstance()
-                                                    .getReference(Constants.FIREBASE_SOURCE_BOOKMARKS);
+                                                    .getReference(Constants.FIREBASE_SOURCE_BOOKMARKS)
+                                                    .child(current_userId);
                 fbService = new FirebaseService(bookMarkedSources);
                 fbService.removeSource(fSources.get(position));
                 Toast toast_message = Toast.makeText(v.getContext(), String.format("%s removed from bookmarks!",
