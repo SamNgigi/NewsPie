@@ -14,6 +14,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.hai.jedi.newspie.R;
 import com.hai.jedi.newspie.ViewModel.HeadlineViewModel;
 import com.hai.jedi.newspie.ViewModel.SharedViewModel;
+import com.squareup.picasso.Picasso;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -65,7 +69,7 @@ public class MainActivity
 
         username = getIntent().getStringExtra("username");
         img_url = getIntent().getStringExtra("image");
-        /*photo = Uri.parse(img_url);*/
+        photo = Uri.parse(img_url);
 
         Log.d(TAG, String.format("Username: %s\n Image url:%s\n", username, img_url));
 
@@ -74,6 +78,13 @@ public class MainActivity
         navView.setItemIconTintList(null);
         // Listening for selection
         navView.setNavigationItemSelectedListener(this);
+
+        View headerView = navView.getHeaderView(0);
+        TextView userTextView = (TextView)  headerView.findViewById(R.id.usernameTxt);
+        userTextView.setText(username);
+        ImageView userImageView = (ImageView) headerView.findViewById(R.id.usernameImg);
+        Picasso.get().load(photo).into(userImageView);
+
         // Setting up Hamburger logout_menu
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();

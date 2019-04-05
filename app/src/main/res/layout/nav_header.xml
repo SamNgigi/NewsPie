@@ -13,13 +13,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_user"
-        android:contentDescription="@string/user_placeholder"/>
+        android:contentDescription="@string/user_placeholder"
+        android:id="@+id/usernameImg"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/test_user"
         android:textAlignment="center"
         android:textSize="20sp"
+        android:fontFamily="@font/rubik_regular"
         android:textColor="@color/mintCream"
         android:id="@+id/usernameTxt"/>
 
@@ -27,8 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/cat_header"
+        android:fontFamily="@font/rubik_regular"
         android:textAlignment="center"
-        android:textSize="20sp"
         android:textColor="@color/colorPrimary"/>
 
 

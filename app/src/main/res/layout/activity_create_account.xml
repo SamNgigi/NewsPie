@@ -5,11 +5,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context=".View.Activities.CreateAccountActivity">
 
-    <com.google.android.gms.common.SignInButton
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textAlignment="center"
+        android:textColor="@color/mintCream"
+        android:textSize="24sp"
+        android:text="@string/app_name"
+        android:id="@+id/appName"/>
+
+    <com.google.android.gms.common.SignInButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:layout_below="@id/appName"
         android:id="@+id/signUpButton"/>
 
 </RelativeLayout>
