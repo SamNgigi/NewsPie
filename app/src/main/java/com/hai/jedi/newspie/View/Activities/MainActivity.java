@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.util.Log;
 
@@ -30,7 +32,7 @@ public class MainActivity
         extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
     //@BindView(R.id.welcomeText) TextView welcomeText;
-    // Tool bar for our menu, to close and open our nav
+    // Tool bar for our logout_menu, to close and open our nav
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.drawer_layout) DrawerLayout drawerLayout;
     @BindView(R.id.nav_view) NavigationView navView;
@@ -72,14 +74,14 @@ public class MainActivity
         navView.setItemIconTintList(null);
         // Listening for selection
         navView.setNavigationItemSelectedListener(this);
-        // Setting up Hamburger menu
+        // Setting up Hamburger logout_menu
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
-        // Hamburger menu animation
+        // Hamburger logout_menu animation
         drawerToggle = setupDrawerToggle();
         drawerLayout.addDrawerListener(drawerToggle);
 
@@ -91,7 +93,7 @@ public class MainActivity
                                          R.string.drawer_open, R.string.drawer_close);
     }
 
-    // Hamburger menu animation manenos
+    // Hamburger logout_menu animation manenos
     @Override
     protected void onPostCreate(Bundle savedInstanceState){
         super.onPostCreate(savedInstanceState);
@@ -104,16 +106,38 @@ public class MainActivity
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
-    // Hamburger Menu manenos
+    //Logout logout_menu options
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logout_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // Hamburger Menu manenos & Logout
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
                 return true;
+            case R.id.logout_action:
+                logout();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    private void logout(){
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(MainActivity.this, CreateAccountActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+
 
     // Nav item clicked manenos
     @Override
@@ -159,6 +183,8 @@ public class MainActivity
             Intent intent = new Intent(this, CreateAccountActivity.class);
         }
     }
+
+
 
 
 }

@@ -34,7 +34,7 @@
     </string>
 
 
-    <!--For our hamburger menu-->
+    <!--For our hamburger logout_menu-->
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
@@ -46,4 +46,5 @@
     <string name="bookmarkicon">bookmarkIcon</string>
     <string name="user_placeholder">user placeholder</string>
     <string name="test_user">Test User</string>
+    <string name="logout">Logout</string>
 </resources>
