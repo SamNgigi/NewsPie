@@ -17,6 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.recyclerview.widget.RecyclerView;
 
 import butterknife.ButterKnife;
@@ -82,11 +83,17 @@ public class HeadlineListAdapter
         public void onClick(View view){
             //Getting the layout position of what we have just clicked
             int itemPosition = getLayoutPosition();
+            String article_url = mHeadlines.get(itemPosition).getArticle_url();
+            CustomTabsIntent.Builder customTabBuilder = new CustomTabsIntent.Builder();
+            CustomTabsIntent customTabsIntent = customTabBuilder.build();
+            customTabsIntent.launchUrl(view.getContext(), Uri.parse(article_url));
+
             // Grabbing the article url of the article we have just clicked on.
-            Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(mHeadlines.get(itemPosition).getArticle_url()));
+            /*Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(mHeadlines.get(itemPosition).getArticle_url()));*/
+
             // Starting the activity.
-            view.getContext().startActivity(webIntent);
+           /* view.getContext().startActivity(webIntent);*/
 
         }
 

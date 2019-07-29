@@ -22,6 +22,7 @@ import com.hai.jedi.newspie.ViewModel.SharedViewModel;
 import java.util.List;
 import java.util.Objects;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProviders;
