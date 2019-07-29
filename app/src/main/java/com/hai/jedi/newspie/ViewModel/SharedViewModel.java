@@ -1,6 +1,7 @@
 package com.hai.jedi.newspie.ViewModel;
 
 
+import com.hai.jedi.newspie.Models.Headline;
 import com.hai.jedi.newspie.Models.Source;
 
 import androidx.lifecycle.LiveData;
@@ -40,8 +41,8 @@ public class SharedViewModel extends ViewModel {
         selected_sourceId.setValue(default_source);
     }
 
-    public void setSelected_sourceId(String selected_source){
-        selected_sourceId.setValue(selected_source);
+    public void setSelected_sourceId(String sourceId){
+        selected_sourceId.setValue(sourceId);
     }
 
     public void setSelected_source(Source source){
@@ -50,6 +51,19 @@ public class SharedViewModel extends ViewModel {
 
     public LiveData<String> getSelected_sourceId(){ return selected_sourceId; }
     public LiveData<Source> getSelected_source(){return selected_source;}
+
+
+    // HEADLINE MANENOS
+    private MutableLiveData<Headline> selected_headline = new MutableLiveData<>();
+
+
+
+
+    public void setSelected_headline(Headline article){
+        selected_headline.postValue(article);
+    }
+    public LiveData<Headline> getSelectedHeadline(){return selected_headline;}
+
 
 
     /*FIREBASE SOURCE QUERY*//*

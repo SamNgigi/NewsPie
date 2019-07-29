@@ -3,22 +3,28 @@ package com.hai.jedi.newspie.View.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hai.jedi.newspie.Models.Headline;
 import com.hai.jedi.newspie.R;
+import com.hai.jedi.newspie.View.Activities.ArticleActivity;
+import com.hai.jedi.newspie.ViewModel.SharedViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.parceler.Parcels;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -26,13 +32,23 @@ import butterknife.BindView;
 public class HeadlineListAdapter
         extends RecyclerView.Adapter<HeadlineListAdapter.HeadlineViewHolder> {
 
+    private static final String TAG = HeadlineListAdapter.class.getSimpleName().toUpperCase();
+
     private Context mContext;
     private List<Headline> mHeadlines;
+    private SharedViewModel sharedViewModel;
 
 
     public HeadlineListAdapter(Context context, List<Headline> headlines){
         this.mContext = context;
         this.mHeadlines = headlines;
+
+        /* *
+         * Initializing the sharedViewModel. We use this to pass headline data from adapter to
+         * ArticleFragment.
+         * */
+        sharedViewModel = ViewModelProviders.of((FragmentActivity) mContext)
+                .get(SharedViewModel.class);
     }
 
     public class HeadlineViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -84,16 +100,15 @@ public class HeadlineListAdapter
             //Getting the layout position of what we have just clicked
             int itemPosition = getLayoutPosition();
             String article_url = mHeadlines.get(itemPosition).getArticle_url();
+            Headline article = mHeadlines.get(itemPosition);
+            sharedViewModel.setSelected_headline(article);
             CustomTabsIntent.Builder customTabBuilder = new CustomTabsIntent.Builder();
             CustomTabsIntent customTabsIntent = customTabBuilder.build();
             customTabsIntent.launchUrl(view.getContext(), Uri.parse(article_url));
-
-            // Grabbing the article url of the article we have just clicked on.
-            /*Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(mHeadlines.get(itemPosition).getArticle_url()));*/
-
-            // Starting the activity.
-           /* view.getContext().startActivity(webIntent);*/
+            /*Intent intent = new Intent(view.getContext(), ArticleActivity.class);
+            Headline article = mHeadlines.get(itemPosition);
+            intent.putExtra("article", Parcels.wrap(article));
+            view.getContext().startActivity(intent);*/
 
         }
 

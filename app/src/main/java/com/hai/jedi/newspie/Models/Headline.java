@@ -3,29 +3,32 @@ package com.hai.jedi.newspie.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Headline {
     @SerializedName("source")
     @Expose
-    private Source baseSource;
-    private String author;
+    Source baseSource;
+    String author;
     @SerializedName("title")
     @Expose
-    private String title;
+    String title;
     @SerializedName("description")
     @Expose
-    private String description;
+    String description;
     @SerializedName("url")
     @Expose
-    private String article_url;
+    String article_url;
     @SerializedName("urlToImage")
     @Expose
-    private String img_url;
+    String img_url;
     @SerializedName("publishedAt")
     @Expose
-    private String published_at;
+    String published_at;
     @SerializedName("content")
     @Expose
-    private String content;
+    String content;
 
     public Headline(){}
 

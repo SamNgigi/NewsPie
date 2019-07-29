@@ -77,6 +77,9 @@ dependencies {
     implementation "com.android.support:support-v4:$androidSupportVersion"
     implementation "com.android.support:design:$androidSupportVersion"
 
+    implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
+    implementation 'org.parceler:parceler-api:1.1.12'
+
     // google material
     implementation "com.google.android.material:material:$materialVersion"
 
